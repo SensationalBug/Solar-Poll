@@ -23,6 +23,7 @@ const Footer = () => {
                     sx={{
                         fontSize: 30,
                         fontWeight: 'bold',
+                        userSelect: 'none',
                         position: 'relative',
                     }}
                 >
@@ -53,7 +54,7 @@ const Footer = () => {
                     <FooterButtons title='Contact Us' />
                 </Grid>
             </Grid>
-        </Grid>
+        </Grid >
     )
 }
 

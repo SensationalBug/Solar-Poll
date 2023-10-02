@@ -1,9 +1,12 @@
 import '../App.css'
 import React from 'react'
-import { FcCommandLine } from "react-icons/fc";
 import { Grid, Typography } from '@mui/material';
 
-function Options() {
+interface options {
+    title: string;
+    icon: any;
+}
+const OptionButton = ({ title, icon }: options) => {
     return (
         <Grid item xs={4} md={2} m={1}
             className='option-card'
@@ -17,7 +20,7 @@ function Options() {
                 border: '4px solid rgba(0,0,0,.25)',
             }}
         >
-            <FcCommandLine size={'70%'} />
+            {icon}
             <Typography
                 sx={{
                     padding: '10px 0',
@@ -25,10 +28,10 @@ function Options() {
                     fontSize: { lg: '18px', md: '16px', xs: '14px' },
                 }}
             >
-                Homeowner
+                {title}
             </Typography>
         </Grid>
     )
 }
 
-export default Options
+export default OptionButton

@@ -1,25 +1,41 @@
 import React from 'react'
-import { Button, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 
-const CustomButton = ({ outline = false, text, bgColor, onClick }: any) => {
+interface customButtonInterface {
+    text: string;
+    bgColor?: string;
+    onClick: () => {};
+    outline?: boolean;
+    disabled?: boolean;
+}
+const CustomButton = ({
+    text,
+    bgColor,
+    onClick,
+    outline = true,
+    disabled = false }: customButtonInterface) => {
     return (
-        <Button
-            onClick={onClick}
-            variant={outline ? 'outlined' : 'contained'}
-            sx={{
-                margin: { md: '0 20px', xs: '0 40px' },
-                padding: '10px 30px',
-                backgroundColor: outline ? 'transparent' : bgColor
-            }}>
-            <Typography
+        <Grid>
+            <Button
+                onClick={onClick}
+                disabled={disabled || false}
+                variant={outline ? 'outlined' : 'contained'}
                 sx={{
-                    fontSize: 20,
-                    fontWeight: 600,
-                    textTransform: 'capitalize',
+                    width: 150,
+                    padding: '10px 30px',
+                    margin: { md: '0 20px', xs: '0 40px' },
+                    backgroundColor: outline ? 'transparent' : bgColor || '',
                 }}>
-                {text}
-            </Typography>
-        </Button>
+                <Typography
+                    sx={{
+                        fontSize: 20,
+                        fontWeight: 600,
+                        textTransform: 'capitalize',
+                    }}>
+                    {text}
+                </Typography>
+            </Button>
+        </Grid>
     )
 }
 

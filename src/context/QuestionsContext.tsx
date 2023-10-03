@@ -12,6 +12,7 @@ interface props {
 
 const QuestionProvider = ({ children }: props) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [zipCode, setZipCode] = useState('');
     const handleNext = () => {
         currentQuestion + 1 === questions.length ?
             setCurrentQuestion((prevQuestion: any) => prevQuestion) :
@@ -45,15 +46,18 @@ const QuestionProvider = ({ children }: props) => {
             id: 4,
             title: 'What is your zip code?',
             text: 'What is your zip code?',
-            question: questionContentQ4,
+            question: () => questionContentQ4(zipCode),
         }
     ];
+
     return (
         <QuestionContext.Provider value={{
             currentQuestion,
             questions,
             handleNext,
             handlePrevious,
+            zipCode,
+            setZipCode,
         }}>
             {children}
         </QuestionContext.Provider>

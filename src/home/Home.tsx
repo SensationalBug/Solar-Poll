@@ -6,7 +6,7 @@ import { QuestionContext } from '../context/QuestionsContext'
 const Home = () => {
     const { currentQuestion, questions, handleNext, handlePrevious, }: any = useContext(QuestionContext)
     return (
-        <Grid container>
+        <Grid container sx={{ justifyContent: 'center' }}>
             <QuestionCard
                 title={questions[currentQuestion].title}
                 text={questions[currentQuestion].text}

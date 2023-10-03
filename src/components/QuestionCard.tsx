@@ -23,7 +23,7 @@ const QuestionCard = ({
     ...questionProps
 }: questionCardInterface) => {
     return (
-        <Grid container sx={questionCardStyles.container}>
+        <Grid item xs={12} lg={10} xl={8} sx={questionCardStyles.container}>
             <Card sx={questionCardStyles.card}>
                 <CardContent sx={questionCardStyles.cardContent}>
                     <Grid container sx={questionCardStyles.textContainer}>

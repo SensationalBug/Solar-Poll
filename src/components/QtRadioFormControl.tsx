@@ -3,7 +3,7 @@ import { FormControlLabel, Radio } from '@mui/material'
 interface radioFormControlInterface {
     title: string;
 }
-const RadioFormControl = ({ title }: radioFormControlInterface) => {
+const QtRadioFormControl = ({ title }: radioFormControlInterface) => {
     return (
         <FormControlLabel
             value={title}
@@ -19,7 +19,7 @@ const RadioFormControl = ({ title }: radioFormControlInterface) => {
                 width: '90%',
                 borderRadius: 3,
                 padding: '5px 0',
-                margin: '10px 0',
+                margin: '5px 0',
                 transition: '.3s',
                 border: '3px solid #808080',
                 '&:hover': {
@@ -31,4 +31,4 @@ const RadioFormControl = ({ title }: radioFormControlInterface) => {
     )
 }
 
-export default RadioFormControl
+export default QtRadioFormControl

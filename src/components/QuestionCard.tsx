@@ -1,32 +1,33 @@
-import { questionCardStyles } from '../styles/questionCardStyles';
-import { Card, CardContent, CardActions, Typography, Grid } from '@mui/material'
 import CustomButton from './CustomButton';
+import { questionCardStyles } from '../styles/questionCardStyles';
+import ValidateAnswers from '../validate-answers/ValidateAnswers';
+import { Card, CardContent, CardActions, Typography, Grid } from '@mui/material'
 
 interface questionCardInterface {
-    title: string;
+    id: number;
     text: string;
-    question: any;
-    handleNext?: any;
-    handlePrevious?: any;
-    questionProps?: any;
+    type: number;
+    title: string;
     count: number;
-    current: number;
+    answers: any;
+    slideToShow: number;
+    setSlideToShow: any;
 }
 const QuestionCard = ({
-    title,
+    id,
     text,
-    question,
-    handleNext,
-    handlePrevious,
+    type,
+    title,
     count,
-    current,
-    ...questionProps
+    answers,
+    slideToShow,
+    setSlideToShow,
 }: questionCardInterface) => {
     return (
-        <Grid item xs={12} lg={10} xl={8} sx={questionCardStyles.container}>
-            <Card sx={questionCardStyles.card}>
+        <Grid item xs={12} lg={10} xl={6} sx={[questionCardStyles.container, { display: slideToShow === id ? 'flex' : 'none' }]}>
+            <Card sx={[questionCardStyles.card, { minHeight: '70vh', borderRadius: { xs: 0, md: 4 }, }]}>
                 <CardContent sx={questionCardStyles.cardContent}>
-                    <Grid container sx={questionCardStyles.textContainer}>
+                    <Grid container>
                         <Grid container sx={questionCardStyles.textContent}>
                             <Typography sx={questionCardStyles.title}>{title}</Typography>
                         </Grid>
@@ -35,22 +36,22 @@ const QuestionCard = ({
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sx={questionCardStyles.questionContent}>
-                        {question(questionProps)}
+                        <ValidateAnswers id={id} answers={answers} type={type} />
                     </Grid>
                 </CardContent>
                 <CardActions sx={questionCardStyles.cardFooter}>
                     <CustomButton
                         text={'Previous'}
-                        onClick={handlePrevious}
-                        disabled={current > 1 ? false : true}
+                        onClick={() => setSlideToShow(slideToShow - 1)}
+                        disabled={slideToShow > 1 ? false : true}
                     />
-                    <Typography sx={{ letterSpacing: 2, userSelect: 'none', }}>{current}/{count}</Typography>
+                    <Typography sx={{ letterSpacing: 2, userSelect: 'none', }}>{slideToShow}/{count}</Typography>
                     <CustomButton
                         text={'Next'}
                         outline={false}
                         bgColor={'#0A70B1'}
-                        onClick={handleNext}
-                        disabled={current === count ? true : false}
+                        onClick={() => setSlideToShow(slideToShow + 1)}
+                        disabled={slideToShow === count ? true : false}
                     />
                 </CardActions>
             </Card>
@@ -59,3 +60,6 @@ const QuestionCard = ({
 }
 
 export default QuestionCard;
+
+
+

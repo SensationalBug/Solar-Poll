@@ -1,13 +1,17 @@
+import FormInput from './FormInput'
 import { Grid, Typography } from '@mui/material'
-import FormInput from '../components/FormInput'
 
-export const questionContentQ4 = (zipCode: any) => {
+interface qtFormTextInputInterface {
+    zipCode: number;
+}
+
+export const QtFormTextInput = ({ zipCode }: qtFormTextInputInterface) => {
     return (
         <Grid container sx={{ height: '70%' }}>
             <Grid item xs={12} sx={{ width: '100%' }}>
                 <FormInput />
                 <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    {zipCode === '1' ? (
+                    {zipCode === 1 ? (
                         <>
                             <Typography sx={{ fontWeight: 'bold', fontSize: 20, padding: '10px 0', textAlign: 'center' }}>Solar incentives in Massachusetts:</Typography>
                             <Grid>

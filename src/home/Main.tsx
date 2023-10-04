@@ -7,8 +7,10 @@ const Main = () => {
     return (
         <Grid container sx={{
             height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
             backgroundColor: '#F9F9F9',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
         }}>
             <Header />
             <Home />

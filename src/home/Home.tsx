@@ -1,21 +1,36 @@
-import { useContext } from 'react'
 import { Grid } from '@mui/material'
+import { useContext, useState } from 'react'
 import QuestionCard from '../components/QuestionCard'
 import { QuestionContext } from '../context/QuestionsContext'
 
 const Home = () => {
-    const { currentQuestion, questions, handleNext, handlePrevious, }: any = useContext(QuestionContext)
+    const [slideToShow, setSlideToShow] = useState(1);
+    const { questions }: any = useContext(QuestionContext)
     return (
-        <Grid container sx={{ justifyContent: 'center' }}>
-            <QuestionCard
-                title={questions[currentQuestion].title}
-                text={questions[currentQuestion].text}
-                question={questions[currentQuestion].question}
-                handleNext={handleNext}
-                handlePrevious={handlePrevious}
-                current={currentQuestion + 1}
-                count={questions.length}
-            />
+        <Grid container
+            sx={{
+                height: '80%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            {questions.map((elem: any) => {
+                const { id, title, text, type, answers }: any = elem;
+                return (
+                    <QuestionCard
+                        key={id}
+                        id={id}
+                        text={text}
+                        type={type}
+                        title={title}
+                        answers={answers}
+                        count={questions.length}
+                        slideToShow={slideToShow}
+                        setSlideToShow={setSlideToShow}
+                    />
+                )
+            })}
         </Grid>
     )
 }

@@ -1,16 +1,14 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { FaFaceSmile, FaFaceFrown } from 'react-icons/fa6'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 
 const ShowZipCode = ({ zipCode }: any) => (
     zipCode === '' ? null : (
         zipCode === '1' ? (
-            <>
-                <Typography sx={{ fontWeight: 'bold' }}>NY</Typography>
-                <FaFaceSmile size={20} color='#198754' />
-            </>
+            <Typography sx={{ fontWeight: 'bold', fontSize: '1.5em' }}>NY</Typography>
         ) : (
-            <FaFaceFrown size={20} color='#dc3545' />
+            <FontAwesomeIcon icon={faClose} size='2x' color='#dc3545' />
         )
     )
 )

@@ -1,34 +1,30 @@
-import React from 'react'
-import { Grid, Typography } from '@mui/material'
-import { MdSunny } from 'react-icons/md'
-import { SlPhone } from 'react-icons/sl'
+import logo from '../assets/logo.png'
+import React, { useContext } from 'react'
 import CustomTooltip from './CustomTooltip'
+import { Grid, Typography } from '@mui/material'
+import { MediaContext } from '../context/MediaContext'
+import { faPhone } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 const Header = () => {
+    const { matchDownMD }: any = useContext(MediaContext)
     return (
         <Grid container
             sx={{
-                height: '10vh',
-                padding: '5px 30px',
+                padding: '5px 10px',
                 alignItems: 'center',
                 justifyContent: 'space-between',
             }}>
             <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-                <MdSunny size={80} color='#F9CD15' />
-                <Typography
-                    sx={{
-                        left: -50,
-                        fontSize: 35,
-                        fontWeight: 'bold',
-                        position: 'relative',
-                    }}
-                >
-                    <b style={{ color: '#0A70B1' }}>Easy</b>
-                    Solar
-                </Typography>
+                <img
+                    src={logo}
+                    alt={'...'}
+                    width={matchDownMD ? 150 : 200}
+                />
             </Grid>
             <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-                <SlPhone size={25} color='#0A70B1' />
+                <FontAwesomeIcon icon={faPhone} size={'1x'} color='#0A70B1' />
                 <CustomTooltip title={
                     <React.Fragment>
                         <Typography sx={{ color: '#000', padding: '5px 0' }}><strong>Would you rather call? It's Free!</strong></Typography>
@@ -39,7 +35,7 @@ const Header = () => {
                     <Typography
                         sx={{
                             fontSize: { md: '1.5em', xs: '1em' },
-                            marginLeft: '10px',
+                            marginLeft: '5px',
                             fontWeight: 'bold',
                             cursor: 'pointer',
                         }}

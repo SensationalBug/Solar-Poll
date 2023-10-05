@@ -6,7 +6,6 @@ import {
     ListItemButton,
 } from '@mui/material'
 import Home from '@mui/icons-material/Home';
-import Logout from '@mui/icons-material/Logout';
 
 const Item = ({ toggleDrawer }: any) => {
     return (
@@ -21,12 +20,6 @@ const Item = ({ toggleDrawer }: any) => {
                         <Home />
                     </ListItemIcon>
                     <ListItemText primary="Inicio" />
-                </ListItemButton>
-                <ListItemButton>
-                    <ListItemIcon>
-                        <Logout />
-                    </ListItemIcon>
-                    <ListItemText primary="Cerrar Sesión" />
                 </ListItemButton>
             </ListItem>
 

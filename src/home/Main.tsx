@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
+import Home from '../components/Home'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Home from './Home'
 
 const Main = () => {
     return (

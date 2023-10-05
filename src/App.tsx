@@ -1,13 +1,15 @@
-import './App.css';
-import Main from './home/Main';
-import QuestionProvider from './context/QuestionsContext';
+// import './App.css';
+import { router } from './routes/Router';
+import { RouterProvider } from "react-router-dom";
 import MediaProvider from './context/MediaContext';
+import QuestionProvider from './context/QuestionsContext';
 
-function App() {
+const App = () => {
+
   return (
     <QuestionProvider>
       <MediaProvider>
-        <Main />
+        <RouterProvider router={router} />
       </MediaProvider>
     </QuestionProvider>
   );

@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import { useContext, useState } from 'react'
-import QuestionCard from '../components/QuestionCard'
+import QuestionCard from './QuestionCard'
 import { QuestionContext } from '../context/QuestionsContext'
 
 const Home = () => {

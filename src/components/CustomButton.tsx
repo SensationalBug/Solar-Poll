@@ -21,7 +21,6 @@ const CustomButton = ({
                 disabled={disabled || false}
                 variant={outline ? 'outlined' : 'contained'}
                 sx={{
-                    // width: 150,
                     padding: '10px 30px',
                     margin: { md: '0 20px', xs: '0 30px' },
                     backgroundColor: outline ? 'transparent' : bgColor || '',

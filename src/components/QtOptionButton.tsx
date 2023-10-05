@@ -1,12 +1,15 @@
-import React from 'react'
+import { useContext } from 'react'
 import { Grid, Typography } from '@mui/material';
+import { QuestionContext } from '../context/QuestionsContext';
 
 interface options {
+    id: number;
     title: string;
     icon: any;
     onClick?: any;
 }
-const QtOptionButton = ({ title, icon, onClick }: options) => {
+const QtOptionButton = ({ id, title, icon, onClick }: options) => {
+    const { fAnswers }: any = useContext(QuestionContext)
     return (
         <Grid
             onClick={onClick}
@@ -20,19 +23,20 @@ const QtOptionButton = ({ title, icon, onClick }: options) => {
                 cursor: 'pointer',
                 padding: '10px 0',
                 userSelect: 'none',
-                transition: '0.5s',
+                transition: '0.2s',
                 alignItems: 'center',
                 flexDirection: 'column',
                 justifyContent: 'space-evenly',
-                border: '4px solid rgba(0,0,0,.25)',
                 '&:hover': {
                     backgroundColor: '#CDE9ED',
-                    border: '3px solid #0A70B1',
+                    border: '4px solid #0A70B1',
                 },
+                backgroundColor: fAnswers[id] === title ? '#CDE9ED' : null,
+                border: fAnswers[id] === title ? '4px solid  #0A70B1' : '4px solid rgba(0,0,0,.25)',
             }}
         >
             {icon}
-            <Typography
+            < Typography
                 sx={{
                     padding: '5px 0',
                     fontWeight: 'bold',
@@ -40,8 +44,8 @@ const QtOptionButton = ({ title, icon, onClick }: options) => {
                 }}
             >
                 {title}
-            </Typography>
-        </Grid>
+            </Typography >
+        </Grid >
     )
 }
 

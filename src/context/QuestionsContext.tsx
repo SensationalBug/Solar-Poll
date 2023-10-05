@@ -8,31 +8,10 @@ interface props {
 }
 
 const QuestionProvider = ({ children }: props) => {
-    const [zipCode, setZipCode] = useState('');
-    const [answers, setAnswers] = useState({
-        1: '',
-        2: '',
-        3: '',
-        4: '',
-    })
+    const [fAnswers, setAnswers] = useState({})
 
     const updateAnswer = (field: string, value: string) => {
         setAnswers((prev: any) => ({ ...prev, [field]: value }))
-    }
-
-    // const updStateData = (
-    //     setState: React.Dispatch<React.SetStateAction<any>>,
-    //     value: any,
-    //     fieldName: string,
-    // ) => {
-    //     setState((prevState: any) => ({
-    //         ...prevState,
-    //         [fieldName]: value,
-    //     }));
-    // };
-
-    const logAnswers = () => {
-        console.log(answers)
     }
 
     const questions = [
@@ -71,17 +50,25 @@ const QuestionProvider = ({ children }: props) => {
             title: 'What is your zip code?',
             text: 'What is your zip code?',
             answers: [''],
-        }
+        },
+        {
+            id: 5,
+            type: 2,
+            title: 'Otra pregunta',
+            text: 'Estimate your monthly electric bill',
+            answers: [
+                { title: 'Opcion 5', img: '' },
+                { title: 'Opcion 6', img: '' },
+                { title: 'Opcion 7', img: '' },
+                { title: 'Opcion 8', img: '' }],
+        },
     ];
 
     return (
         <QuestionContext.Provider value={{
             questions,
-            zipCode,
-            setZipCode,
             updateAnswer,
-            answers,
-            logAnswers
+            fAnswers,
         }}>
             {children}
         </QuestionContext.Provider>

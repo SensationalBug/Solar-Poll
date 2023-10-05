@@ -12,11 +12,16 @@ interface validateAnswersInterface {
     answers: string[];
 }
 const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
-    const { zipCode, updateAnswer }: any = useContext(QuestionContext)
+    const { zipCode, updateAnswer }: any = useContext(QuestionContext);
     const showAnswers = () => {
         if (type === 1) {
             return answers.map((elem: any, index: number) => (
-                <QtOptionButton key={index} onClick={() => updateAnswer(id, elem.title)} title={elem.title} icon={<FontAwesomeIcon icon={elem.img} size='4x' />} />
+                <QtOptionButton
+                    id={id}
+                    key={index}
+                    title={elem.title}
+                    onClick={() => updateAnswer(id, elem.title)}
+                    icon={<FontAwesomeIcon icon={elem.img} size='4x' />} />
             ))
         }
         if (type === 2) {
@@ -24,7 +29,7 @@ const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
                 <CheckInput radioFormControl={
                     <>
                         {answers.map((elem: any, index: number) => (
-                            <QtRadioFormControl key={index} title={elem.title} />
+                            <QtRadioFormControl key={index} id={id} title={elem.title} />
                         ))}
                     </>
                 } />
@@ -32,9 +37,7 @@ const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
 
         }
         if (type === 3) {
-            // return answers.map((elem: any) => (
-            return <QtFormTextInput zipCode={zipCode} />
-            // ))
+            return <QtFormTextInput id={id} zipCode={zipCode} />
         }
     }
     return (

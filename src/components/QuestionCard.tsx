@@ -1,11 +1,10 @@
 import { useContext } from 'react';
-import '../styles/question-card.css'
+import { keyframes } from '@mui/system';
 import CustomButton from './CustomButton';
 import { QuestionContext } from '../context/QuestionsContext';
 import { questionCardStyles } from '../styles/questionCardStyles';
 import ValidateAnswers from '../validate-answers/ValidateAnswers';
 import { Card, CardContent, CardActions, Typography, Grid } from '@mui/material'
-
 interface questionCardInterface {
     id: number;
     text: string;
@@ -27,9 +26,24 @@ const QuestionCard = ({
     setSlideToShow,
 }: questionCardInterface) => {
     const { fAnswers }: any = useContext(QuestionContext)
+    const toLeftSlide = keyframes`
+    from {
+        opacity: 0;
+        left: 200px;
+      }
+      to {
+        opacity: 1;
+        left: 0px;
+      }
+  `;
     return (
         <Grid item xs={12} lg={10} xl={6} sx={[questionCardStyles.container, { display: slideToShow === id ? 'flex' : 'none' }]}>
-            <Card className='question-card' sx={[questionCardStyles.card, { minHeight: '70vh', borderRadius: { xs: 0, md: 4 }, }]}>
+            <Card sx={[questionCardStyles.card, {
+                minHeight: '70vh',
+                position: 'relative',
+                borderRadius: { xs: 0, md: 4 },
+                animation: `${toLeftSlide} .5s 1 ease-out`
+            }]}>
                 <CardContent sx={questionCardStyles.cardContent}>
                     <Grid container>
                         <Grid container sx={questionCardStyles.textContent}>
@@ -59,7 +73,7 @@ const QuestionCard = ({
                     />
                 </CardActions>
             </Card>
-        </Grid>
+        </Grid >
     )
 }
 

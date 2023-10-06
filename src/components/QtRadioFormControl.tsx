@@ -1,5 +1,5 @@
-import { FormControlLabel, Radio } from '@mui/material'
 import { useContext } from 'react';
+import { FormControlLabel, Radio } from '@mui/material'
 import { QuestionContext } from '../context/QuestionsContext';
 
 interface radioFormControlInterface {
@@ -7,12 +7,12 @@ interface radioFormControlInterface {
     title: string;
 }
 const QtRadioFormControl = ({ id, title }: radioFormControlInterface) => {
-    const { updateAnswer, fAnswers }: any = useContext(QuestionContext)
+    const { fAnswers, update, setAnswers }: any = useContext(QuestionContext)
     return (
         <FormControlLabel
             value={title}
             label={title}
-            onChange={({ target }: any) => updateAnswer(id, target.value)}
+            onChange={({ target }: any) => update(setAnswers, id, target.value)}
             control={<Radio
                 sx={{
                     color: '#808080',

@@ -12,7 +12,7 @@ interface validateAnswersInterface {
     answers: string[];
 }
 const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
-    const { updateAnswer }: any = useContext(QuestionContext);
+    const { update, setAnswers }: any = useContext(QuestionContext);
     const showAnswers = () => {
         if (type === 1) {
             return answers.map((elem: any, index: number) => (
@@ -20,7 +20,7 @@ const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
                     id={id}
                     key={index}
                     title={elem.title}
-                    onClick={() => updateAnswer(id, elem.title)}
+                    onClick={() => update(setAnswers, id, elem.title)}
                     icon={<FontAwesomeIcon icon={elem.img} size='4x' />} />
             ))
         }

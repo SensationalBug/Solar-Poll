@@ -18,7 +18,7 @@ interface contactFormInterface {
 }
 
 export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterface) => {
-    const { sendAnswers, updateAnswer }: any = useContext(QuestionContext)
+    const { sendAnswers, update, setUdata }: any = useContext(QuestionContext)
     const toLeftSlide = keyframes`
     from {
         opacity: 0;
@@ -59,7 +59,7 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                                 label="Nombre"
                                 variant="standard"
                                 onChange={
-                                    ({ target }: any) => updateAnswer('name', target.value)}
+                                    ({ target }: any) => update(setUdata, 'name', target.value)}
                             />
                         </Grid>
                         <Grid
@@ -74,7 +74,7 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                                 label="Correo"
                                 variant="standard"
                                 onChange={
-                                    ({ target }: any) => updateAnswer('email', target.value)}
+                                    ({ target }: any) => update(setUdata, 'email', target.value)}
                             />
                         </Grid>
                     </Grid>

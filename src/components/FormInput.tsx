@@ -9,7 +9,7 @@ interface formInputInterface {
 }
 
 const FormInput = ({ id, label, setValue }: formInputInterface) => {
-    const { updateAnswer }: any = useContext(QuestionContext)
+    const { update, setAnswers }: any = useContext(QuestionContext)
 
     const updateZipCode = (target: any) => {
         return new Promise(resolve => {
@@ -33,7 +33,7 @@ const FormInput = ({ id, label, setValue }: formInputInterface) => {
                 onChange={
                     ({ target }: any) =>
                         updateZipCode(target)
-                            .then(() => updateAnswer(id, target.value))}
+                            .then(() => update(setAnswers, id, target.value))}
             />
         </Grid>
     )

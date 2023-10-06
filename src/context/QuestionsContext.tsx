@@ -1,7 +1,7 @@
-import { createContext, useState } from "react";
-import { fa1, fa2, fa3, fa4, fa5, fa6 } from '@fortawesome/free-solid-svg-icons'
 import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
-import { getDatabase, ref, set } from 'firebase/database'
+import { getDatabase, ref, set, onValue } from 'firebase/database'
+import { createContext, useEffect, useState, useCallback } from "react";
+import { fa1, fa2, fa3, fa4, fa5, fa6 } from '@fortawesome/free-solid-svg-icons'
 
 export const QuestionContext = createContext({});
 
@@ -10,21 +10,38 @@ interface props {
 }
 
 const QuestionProvider = ({ children }: props) => {
+    const date = new Date()
     const database = getDatabase(firebaseApp)
-    const [fAnswers, setAnswers] = useState({
-        name: ''
+    const [uAnswers, setUanswers] = useState([])
+    const [fAnswers, setAnswers] = useState({})
+    const [uData, setUdata] = useState({
+        name: '',
+        email: '',
+        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
     })
 
-    const updateAnswer = (field: string, value: string) => {
-        setAnswers((prev: any) => ({ ...prev, [field]: value }))
+    const update = (set: any, field: string, value: string) => {
+        set((prev: any) => ({ ...prev, [field]: value }))
     }
 
     const sendAnswers = () => {
-        set(ref(database, `answers/${fAnswers?.name}`), {
-            'Respuestas': fAnswers
+        set(ref(database, `answers/${uData?.name}`), {
+            'respuestas': fAnswers,
+            'data': uData,
         })
-        console.log(fAnswers)
     }
+
+    const getAnswers = useCallback(() => {
+        const dataRef = ref(database, 'answers/')
+        onValue(dataRef, (snapshot) => {
+            const data = snapshot.val();
+            setUanswers(data);
+        })
+    }, [database])
+
+    useEffect(() => {
+        getAnswers()
+    }, [getAnswers])
 
     const questions = [
         {
@@ -79,9 +96,13 @@ const QuestionProvider = ({ children }: props) => {
     return (
         <QuestionContext.Provider value={{
             questions,
-            updateAnswer,
             fAnswers,
-            sendAnswers
+            sendAnswers,
+            getAnswers,
+            uAnswers,
+            update,
+            setUdata,
+            setAnswers,
         }}>
             {children}
         </QuestionContext.Provider>

@@ -21,7 +21,7 @@ const QuestionProvider = ({ children }: props) => {
 
     const sendAnswers = () => {
         set(ref(database, `answers/${fAnswers?.name}`), {
-            fAnswers
+            'Respuestas': fAnswers
         })
         console.log(fAnswers)
     }

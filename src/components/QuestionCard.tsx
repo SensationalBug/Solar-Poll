@@ -29,11 +29,11 @@ const QuestionCard = ({
     const toLeftSlide = keyframes`
     from {
         opacity: 0;
-        left: 200px;
+        // left: 200px;
       }
       to {
         opacity: 1;
-        left: 0px;
+        // left: 0px;
       }
   `;
     return (
@@ -42,7 +42,7 @@ const QuestionCard = ({
                 minHeight: '70vh',
                 position: 'relative',
                 borderRadius: { xs: 0, md: 4 },
-                animation: `${toLeftSlide} .5s 1 ease-out`
+                animation: `${toLeftSlide} .5s 1 ease-out`,
             }]}>
                 <CardContent sx={questionCardStyles.cardContent}>
                     <Grid container>
@@ -65,11 +65,11 @@ const QuestionCard = ({
                     />
                     <Typography sx={{ letterSpacing: 2, userSelect: 'none', }}>{slideToShow}/{count}</Typography>
                     <CustomButton
+                        text='Next'
                         outline={false}
-                        bgColor={slideToShow === count ? '#0ab110' : '#0A70B1'}
+                        bgColor='#0A70B1'
                         disabled={fAnswers[id] ? false : true}
                         onClick={() => setSlideToShow(slideToShow + 1)}
-                        text={slideToShow === count ? 'Enviar' : 'Next'}
                     />
                 </CardActions>
             </Card>

@@ -10,6 +10,7 @@ import {
     Typography,
     IconButton,
     TableContainer,
+    Button,
 } from '@mui/material';
 import * as React from 'react';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -105,8 +106,8 @@ const rows = [
 const UsersTable = () => {
     return (
         <TableContainer component={Paper}
-            sx={{ width: { xs: '100%', md: '90%', lg: '80%' }, height: '90%' }}>
-            <Table>
+            sx={{ width: { xs: '100%', md: '90%', lg: '80%'}, height: '90%' }}>
+            <Table sx={{ border: 'none' }}>
                 <TableHead sx={{ backgroundColor: '#0A70B1' }}>
                     <TableRow>
                         <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>

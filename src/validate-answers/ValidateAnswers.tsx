@@ -12,7 +12,7 @@ interface validateAnswersInterface {
     answers: string[];
 }
 const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
-    const { zipCode, updateAnswer }: any = useContext(QuestionContext);
+    const { updateAnswer }: any = useContext(QuestionContext);
     const showAnswers = () => {
         if (type === 1) {
             return answers.map((elem: any, index: number) => (
@@ -37,7 +37,7 @@ const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
 
         }
         if (type === 3) {
-            return <QtFormTextInput id={id} zipCode={zipCode} />
+            return <QtFormTextInput id={id} />
         }
     }
     return (

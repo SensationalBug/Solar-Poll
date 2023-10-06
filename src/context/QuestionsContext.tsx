@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
 import { fa1, fa2, fa3, fa4, fa5, fa6 } from '@fortawesome/free-solid-svg-icons'
+import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
+import { getDatabase, ref, set } from 'firebase/database'
 
 export const QuestionContext = createContext({});
 
@@ -8,10 +10,20 @@ interface props {
 }
 
 const QuestionProvider = ({ children }: props) => {
-    const [fAnswers, setAnswers] = useState({})
+    const database = getDatabase(firebaseApp)
+    const [fAnswers, setAnswers] = useState({
+        name: ''
+    })
 
     const updateAnswer = (field: string, value: string) => {
         setAnswers((prev: any) => ({ ...prev, [field]: value }))
+    }
+
+    const sendAnswers = () => {
+        set(ref(database, `answers/${fAnswers?.name}`), {
+            fAnswers
+        })
+        console.log(fAnswers)
     }
 
     const questions = [
@@ -69,6 +81,7 @@ const QuestionProvider = ({ children }: props) => {
             questions,
             updateAnswer,
             fAnswers,
+            sendAnswers
         }}>
             {children}
         </QuestionContext.Provider>

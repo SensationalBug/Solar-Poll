@@ -1,16 +1,31 @@
+import { useState } from 'react'
 import FormInput from './FormInput'
+import ShowZipCode from './ShowZipCode';
 import { Grid, Typography } from '@mui/material'
 
 interface qtFormTextInputInterface {
     id: number;
-    zipCode: string;
 }
 
-export const QtFormTextInput = ({ id, zipCode }: qtFormTextInputInterface) => {
+export const QtFormTextInput = ({ id }: qtFormTextInputInterface) => {
+    const [zipCode, setZipCode] = useState('');
     return (
         <Grid container sx={{ height: '70%' }}>
             <Grid item xs={12} sx={{ width: '100%' }}>
-                <FormInput id={id} />
+                <Grid item sx={{ display: 'flex', flexDirection: 'row', alignSelf: 'center' }}>
+                    <Grid item xs={12}>
+                        <FormInput id={id} label='Enter your zip code' setValue={setZipCode} />
+                    </Grid>
+                    <Grid item xs={1}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                        <ShowZipCode zipCode={zipCode} />
+                    </Grid>
+                </Grid>
                 <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {zipCode === '1' ? (
                         <>

@@ -22,13 +22,11 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-        width: `calc(100% - 150px)`,
         transition: theme.transitions.create(['width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -41,8 +39,8 @@ export const AppBarComponent = () => {
     const toggleDrawer = () => setOpen(!open);
     return (
         <>
-            <AppBar position="absolute" open={open} sx={{ backgroundColor: '#0A70B1' }}>
-                <Toolbar sx={{ pr: '24px' }}>
+            <AppBar position="relative" open={open} sx={{ backgroundColor: '#0A70B1' }}>
+                <Toolbar>
                     <IconButton
                         edge="start"
                         color="inherit"

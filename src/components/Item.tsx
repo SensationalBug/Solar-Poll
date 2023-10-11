@@ -2,27 +2,42 @@ import {
     Box,
     ListItem,
     ListItemIcon,
-    ListItemText,
-    ListItemButton,
 } from '@mui/material'
+import { CustomLink } from './CustomLink';
 import Home from '@mui/icons-material/Home';
-
+import { CustomListText } from './CustomListText';
+import AccountTree from '@mui/icons-material/AccountTree';
+import { CustomListItemButton } from './CustomListItemButton';
+import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 const Item = ({ toggleDrawer }: any) => {
     return (
-        <Box
-            sx={{ width: 150 }}
-            onClick={toggleDrawer}
-            onKeyDown={toggleDrawer}
-        >
+        <Box onKeyDown={toggleDrawer} sx={{ width: "250px" }}>
             <ListItem sx={{ display: 'flex', flexDirection: 'column' }}>
-                <ListItemButton>
-                    <ListItemIcon>
-                        <Home />
-                    </ListItemIcon>
-                    <ListItemText primary="Inicio" />
-                </ListItemButton>
+                <CustomListItemButton>
+                    <CustomLink to={"/dashboard"}>
+                        <ListItemIcon>
+                            <Home color='info'/>
+                        </ListItemIcon>
+                        <CustomListText primary="Inicio" />
+                    </CustomLink>
+                </CustomListItemButton>
+                <CustomListItemButton>
+                    <CustomLink to={"/surveys"}>
+                        <ListItemIcon>
+                            <AccountTree color='info'/>
+                        </ListItemIcon>
+                        <CustomListText primary="Surveys" />
+                    </CustomLink>
+                </CustomListItemButton>
+                <CustomListItemButton>
+                    <CustomLink to={"/answers"}>
+                        <ListItemIcon>
+                            <AccessTimeTwoToneIcon color='info'/>
+                        </ListItemIcon>
+                        <CustomListText primary="Answers" />
+                    </CustomLink>
+                </CustomListItemButton>
             </ListItem>
-
         </Box>
     )
 }

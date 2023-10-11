@@ -1,5 +1,6 @@
 import {
     Box,
+    Grid,
     Table,
     TableRow,
     Collapse,
@@ -8,7 +9,6 @@ import {
     TableBody,
     Typography,
     IconButton,
-    Grid,
 } from '@mui/material';
 import React from 'react'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -28,19 +28,28 @@ const RowTable = ({ row }: any) => {
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell>
+                <TableCell sx={{ width: '10%' }}>
                     <IconButton
                         size="small"
-                        aria-label="expand row"
                         onClick={() => setOpen(!open)}
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell
+                    sx={{
+                        width: '45%',
+                        fontSize: { xs: '1em', lg: '1.3em' },
+                        fontWeight: { xs: 'initial', lg: 'bold' },
+                    }} component="th" scope="row">
                     {row.data.name}
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell
+                    sx={{
+                        width: '45%',
+                        fontSize: { xs: '1em', lg: '1.3em' },
+                        fontWeight: { xs: 'initial', lg: 'bold' },
+                    }} component="th" scope="row">
                     {row.data.date}
                 </TableCell>
             </TableRow>
@@ -48,7 +57,7 @@ const RowTable = ({ row }: any) => {
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
-                            <Grid container sx={{justifyContent:'space-between'}}>
+                            <Grid container sx={{ justifyContent: 'space-between' }}>
                                 <Typography variant="h6" gutterBottom component="div">
                                     Email: {row.data.email}
                                 </Typography>

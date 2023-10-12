@@ -4,14 +4,15 @@ import { AppBarComponent } from './AppBar'
 
 interface pageInterface {
     children: ReactNode;
+    overflow?: string;
 }
 
-export const Page = ({ children }: pageInterface) => {
+export const Page = ({ children, overflow }: pageInterface) => {
     return (
-        <Grid sx={{ height: '100vh', overflow: 'hidden' }}>
+        <Grid sx={{ height: '100vh', overflow: overflow || 'hidden' }}>
             <AppBarComponent />
             <Grid sx={{
-                height: '95%',
+                height: { xs: '90%', xl: '93%' },
                 alignItems: 'center',
                 justifyContent: 'center',
                 display: { md: 'flex', xs: 'unset' },

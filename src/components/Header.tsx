@@ -1,9 +1,9 @@
 import logo from '../assets/logo.png'
 import React, { useContext } from 'react'
-import CustomTooltip from './CustomTooltip'
 import { Grid, Typography } from '@mui/material'
 import { MediaContext } from '../context/MediaContext'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
+import CustomTooltip from './custom-components/CustomTooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 

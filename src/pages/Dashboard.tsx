@@ -4,7 +4,7 @@ import { Page } from '../components/Page';
 export default function Dashboard() {
   return (
     <Page>
-      <div>Surveys</div>
+      <div>DB</div>
     </Page>
   );
 }

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Grid, Typography } from '@mui/material';
-import { QuestionContext } from '../context/QuestionsContext';
+import { QuestionContext } from '../../context/QuestionsContext';
 
 interface options {
     id: number;

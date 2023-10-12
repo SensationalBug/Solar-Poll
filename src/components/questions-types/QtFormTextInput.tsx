@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import FormInput from './FormInput'
-import ShowZipCode from './ShowZipCode';
+import FormInput from '../FormInput'
+import ShowZipCode from '../ShowZipCode';
 import { Grid, Typography } from '@mui/material'
 
 interface qtFormTextInputInterface {

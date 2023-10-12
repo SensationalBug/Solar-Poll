@@ -34,9 +34,7 @@ const UsersTable = () => {
                 <Table>
                     <TableHead sx={{ backgroundColor: '#0A70B1' }}>
                         <TableRow>
-                            <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>
-
-                            </TableCell>
+                            <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}></TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>Nombre</TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>Fecha</TableCell>
                         </TableRow>

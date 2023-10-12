@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { FormControlLabel, Radio } from '@mui/material'
-import { QuestionContext } from '../context/QuestionsContext';
+import { QuestionContext } from '../../context/QuestionsContext';
 
 interface radioFormControlInterface {
     id: number;

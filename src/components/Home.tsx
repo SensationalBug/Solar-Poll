@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material'
 import { useContext, useState } from 'react'
-import QuestionCard from './QuestionCard'
-import { QuestionContext } from '../context/QuestionsContext'
 import { ContactForm } from './ContactForm'
+import QuestionCard from './cards/QuestionCard'
+import { QuestionContext } from '../context/QuestionsContext'
 
 const Home = () => {
     const [slideToShow, setSlideToShow] = useState(1);

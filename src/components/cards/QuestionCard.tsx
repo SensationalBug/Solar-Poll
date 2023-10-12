@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { keyframes } from '@mui/system';
-import CustomButton from './CustomButton';
-import { QuestionContext } from '../context/QuestionsContext';
-import { questionCardStyles } from '../styles/questionCardStyles';
-import ValidateAnswers from '../validate-answers/ValidateAnswers';
+import CustomButton from '../custom-components/CustomButton';
+import { QuestionContext } from '../../context/QuestionsContext';
+import { questionCardStyles } from '../../styles/questionCardStyles';
+import ValidateAnswers from '../../validate-answers/ValidateAnswers';
 import { Card, CardContent, CardActions, Typography, Grid } from '@mui/material'
 interface questionCardInterface {
     id: number;

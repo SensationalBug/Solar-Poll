@@ -8,7 +8,7 @@ import {
     CardContent,
 } from '@mui/material'
 import { useContext } from 'react'
-import CustomButton from './CustomButton'
+import CustomButton from './custom-components/CustomButton'
 import { QuestionContext } from '../context/QuestionsContext';
 import { questionCardStyles } from '../styles/questionCardStyles'
 

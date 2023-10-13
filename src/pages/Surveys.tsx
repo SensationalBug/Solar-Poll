@@ -4,12 +4,9 @@ import { Grid } from '@mui/material'
 import { MediaContext } from '../context/MediaContext'
 import SurveysTable from '../components/SurveysTable'
 import { NewSurvey } from '../components/NewSurvey'
-import { SurveysContext } from '../context/SurveysContext'
 
 export const Surveys = () => {
-    const { surveys }: any = useContext(SurveysContext)
     const { matchDownMD }: any = useContext(MediaContext)
-    console.log(surveys)
     return (
         <Page overflow={matchDownMD ? 'auto' : 'hidden'}>
             <Grid item xs={12} md={6} sx={{ height: '100%', width: '100%', }}>

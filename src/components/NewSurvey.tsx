@@ -9,8 +9,7 @@ import { SurveysContext } from '../context/SurveysContext';
 export const NewSurvey = () => {
     const [open, setOpen] = React.useState(false);
     const [numberSelected, setNumberSelected] = React.useState(1)
-    const { updateTitle, newSurvey }: any = React.useContext(SurveysContext)
-
+    const { updateTitle, newSurveyTitle }: any = React.useContext(SurveysContext)
     // const { matchDownMD }: any = React.useContext(MediaContext)
 
     const handleDecrease = () => {
@@ -44,15 +43,15 @@ export const NewSurvey = () => {
                     justifyContent: 'space-evenly',
                 }}>
                 <Grid item sx={{ width: '90%' }}>
-                    <TextField onChange={(elem: any) => updateTitle('title', elem.target.value)} fullWidth label="Nombre de la encuesta" variant="outlined" />
+                    <TextField value={newSurveyTitle.title} onChange={(elem: any) => updateTitle('title', elem.target.value)} fullWidth label="Nombre de la encuesta" variant="outlined" />
                 </Grid>
                 <Grid item sx={{ width: '90%', display: 'flex', justifyContent: 'space-between' }}>
                     {/* <CustomNumberSelector numberSelected={numberSelected} handleDecrease={handleDecrease} handleIncrease={handleIncrease} /> */}
                     <Button
-                        disabled={newSurvey.title ? false : true}
                         variant='contained'
                         onClick={() => setOpen(true)}
                         sx={{ backgroundColor: '#0A70B1' }}
+                        disabled={newSurveyTitle.title ? false : true}
                     >
                         Crear encuesta
                     </Button>

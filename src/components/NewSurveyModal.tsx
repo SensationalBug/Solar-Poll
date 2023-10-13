@@ -9,6 +9,7 @@ interface survey {
     update?: any;
     updateAnswer?: any;
     sendNewSurvey?: any;
+    updateTitle?: any;
 }
 export const NewSurveyModal = ({
     open,
@@ -16,7 +17,7 @@ export const NewSurveyModal = ({
     numberSelected,
     handleDecrease,
     handleIncrease }: any) => {
-    const { sendNewSurvey, update, updateAnswer }: survey = React.useContext(SurveysContext)
+    const { sendNewSurvey, update, updateAnswer, updateTitle }: survey = React.useContext(SurveysContext)
     return (
         <Modal
             open={open}
@@ -59,7 +60,11 @@ export const NewSurveyModal = ({
                     </Button>
                     <Button
                         variant='contained'
-                        onClick={() => sendNewSurvey()}
+                        onClick={() => {
+                            setOpen(false)
+                            sendNewSurvey()
+                            updateTitle('title', '')
+                        }}
                     >
                         Guardar encuesta
                     </Button>

@@ -1,6 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
-import { getDatabase, ref, set, onValue } from 'firebase/database'
+import { getDatabase, ref, set, onValue, orderByChild } from 'firebase/database'
+import { v4 as uuid } from 'uuid';
 
 export const SurveysContext = createContext({});
 
@@ -13,12 +14,17 @@ interface newSurvey {
 }
 
 const SurveysProvider = ({ children }: surveysContextInterface) => {
+    const date = new Date();
     const database = getDatabase(firebaseApp)
+    const [newSurveyTitle, setNewSurveyTitle] = useState({
+        title: '',
+        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}:${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    })
     const [newSurvey, setNewSurvey] = useState<newSurvey>({});
     const [surveys, setSurveys] = useState([]);
 
     const updateTitle = (field: any, value: any) => {
-        setNewSurvey((prevState: any) => ({ ...prevState, [field]: value }))
+        setNewSurveyTitle((prevState: any) => ({ ...prevState, [field]: value }))
     }
     const update = (id: any, field: any, value: any) => {
         setNewSurvey((prevState: any) => ({ ...prevState, [id]: { ...prevState[id], [field]: value } }))
@@ -28,14 +34,17 @@ const SurveysProvider = ({ children }: surveysContextInterface) => {
     }
 
     const sendNewSurvey = () => {
-        set(ref(database, `surveys/${newSurvey?.title}`), newSurvey)
+        set(ref(database, `surveys/${uuid()}`), {
+            'data': newSurveyTitle,
+            'questions': newSurvey
+        }).then(() => setNewSurvey({}))
     }
 
     const getSurveys = useCallback(() => {
         const dataRef = ref(database, 'surveys/')
         onValue(dataRef, (snapshot) => {
             const data = snapshot.val();
-            setSurveys(data);
+            data ? setSurveys(data) : setSurveys([])
         })
     }, [database])
 
@@ -52,6 +61,7 @@ const SurveysProvider = ({ children }: surveysContextInterface) => {
             setNewSurvey,
             sendNewSurvey,
             surveys,
+            newSurveyTitle
         }}>
             {children}
         </SurveysContext.Provider>

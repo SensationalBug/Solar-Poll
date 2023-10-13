@@ -2,30 +2,21 @@ import * as React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Grid, Modal, Button } from '@mui/material';
 import { NewQuestionCard } from './cards/NewQuestionCard';
-// import { SurveysContext } from '../context/SurveysContext';
+import { SurveysContext } from '../context/SurveysContext';
 
+interface survey {
+    newSurvey?: any;
+    update?: any;
+    updateAnswer?: any;
+    sendNewSurvey?: any;
+}
 export const NewSurveyModal = ({
     open,
     setOpen,
     numberSelected,
     handleDecrease,
     handleIncrease }: any) => {
-    // const { updateSurvey }: any = React.useContext(SurveysContext)
-    const [preguntas, setPreguntas] = React.useState({
-        answers: {}
-    })
-
-    const update = (field: any, value: any) => {
-        setPreguntas((prevState) => ({ ...prevState, [field]: value }))
-    }
-
-    const update2 = (id: any, field: any, value: any) => {
-        setPreguntas((prevState) => ({ ...prevState, [id]: { ...prevState, [field]: value } }))
-    }
-
-    const updateAnswer = (field: any, value: any) => {
-        setPreguntas((prevState) => ({ ...prevState, 'answers': { ...prevState.answers, [field]: value } }))
-    }
+    const { sendNewSurvey, update, updateAnswer }: survey = React.useContext(SurveysContext)
     return (
         <Modal
             open={open}
@@ -50,7 +41,7 @@ export const NewSurveyModal = ({
                     bgcolor: 'background.paper',
                 }}>
                     {[...Array(numberSelected)].map((_, index) => (
-                        <NewQuestionCard index={index} update={update2} updateAnswer={updateAnswer} />
+                        <NewQuestionCard index={index} update={update} updateAnswer={updateAnswer} />
                     ))}
                 </Grid>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -68,15 +59,9 @@ export const NewSurveyModal = ({
                     </Button>
                     <Button
                         variant='contained'
-                        onClick={() => handleIncrease()}
+                        onClick={() => sendNewSurvey()}
                     >
                         Guardar encuesta
-                    </Button>
-                    <Button
-                        variant='contained'
-                        onClick={() => console.log(preguntas)}
-                    >
-                        Loguear encuesta
                     </Button>
                 </Grid>
                 <Button

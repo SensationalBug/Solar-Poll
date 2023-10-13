@@ -2,12 +2,14 @@ import React from 'react'
 import { Grid, TextField } from '@mui/material'
 import { CustomSelector } from '../custom-components/CustomSelector'
 import { CustomCuantitySelector } from '../custom-components/CustomCuantitySelector';
+import { SurveysContext } from '../../context/SurveysContext';
 
-export const NewQuestionCard = ({ index, update, updateAnswer }: any) => {
+export const NewQuestionCard = ({ index }: any) => {
+    const { update, updateAnswer }: any = React.useContext(SurveysContext)
     const [questionType, setQuestionType] = React.useState('');
     const [answerCuantity, setAnswerCuantity] = React.useState('');
     return (
-        <Grid key={index} container xs={10}
+        <Grid item key={index} container xs={10}
             sx={{
                 margin: 2,
                 padding: 1,
@@ -21,16 +23,16 @@ export const NewQuestionCard = ({ index, update, updateAnswer }: any) => {
                 <TextField onChange={(elem: any) => update(index, 'question', elem.target.value)} fullWidth label="Inserte una pregunta" variant="standard" />
             </Grid>
             <Grid item sx={{ width: '95%', margin: '5px 0' }}>
-                <TextField onChange={(elem: any) => update('text', elem.target.value)} fullWidth label="Inserte un texto" variant="standard" />
+                <TextField onChange={(elem: any) => update(index, 'description', elem.target.value)} fullWidth label="Inserte una descripcion" variant="standard" />
             </Grid>
             <Grid item sx={{ width: '95%', margin: '5px 0', display: { xs: 'unset', md: 'flex' }, justifyContent: 'space-between' }}>
-                <CustomSelector update={update} get={questionType} set={setQuestionType} />
-                <CustomCuantitySelector update={update} get={answerCuantity} set={setAnswerCuantity} />
+                <CustomSelector index={index} update={update} get={questionType} set={setQuestionType} />
+                <CustomCuantitySelector index={index} update={update} get={answerCuantity} set={setAnswerCuantity} />
             </Grid>
             <Grid item sx={{ width: '95%', margin: '5px 0' }}>
                 {answerCuantity ? (
-                    [...Array(answerCuantity)].map((_, index) => (
-                        <TextField onChange={(elem: any) => updateAnswer(index + 1, elem.target.value)} fullWidth label="Inserte una respuesta" variant="standard" />
+                    [...Array(answerCuantity)].map((_, answerIndex) => (
+                        <TextField onChange={(elem: any) => updateAnswer(index, answerIndex, elem.target.value)} fullWidth label="Inserte una respuesta" variant="standard" />
                     ))
                 ) : (
                     null

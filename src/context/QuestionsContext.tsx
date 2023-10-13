@@ -91,6 +91,17 @@ const QuestionProvider = ({ children }: props) => {
                 { title: 'Opcion 7', img: '' },
                 { title: 'Opcion 8', img: '' }],
         },
+        {
+            id: 6,
+            type: 2,
+            title: 'Otra pregunta',
+            text: 'Estimate your monthly electric bill',
+            answers: [
+                { title: 'Opcion 5', img: '' },
+                { title: 'Opcion 6', img: '' },
+                { title: 'Opcion 7', img: '' },
+                { title: 'Opcion 8', img: '' }],
+        },
     ];
 
     return (

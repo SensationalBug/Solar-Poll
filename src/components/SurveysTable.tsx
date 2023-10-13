@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import { Grid, Typography } from '@mui/material';
+import { SurveysContext } from '../context/SurveysContext'
 
 export default function SurveysTable() {
+    const { surveys }: any = useContext(SurveysContext)
+    const entries = Object.entries(surveys);
     return (
         <>
             <Grid
@@ -15,7 +19,11 @@ export default function SurveysTable() {
             >
                 <Typography sx={{ color: '#fff', fontSize: '1.5em' }}>Encuestas</Typography>
             </Grid>
-            <Grid>Container</Grid>
+            <Grid>
+                {entries.map((elem: any, index) => (
+                    <Typography key={index} sx={{ color: '#000', fontSize: '1.5em' }}>{elem[0]}</Typography>
+                ))}
+            </Grid>
         </>
     );
 }

@@ -40,7 +40,7 @@ const QtOptionButton = ({ id, title, icon, onClick }: options) => {
                 sx={{
                     padding: '5px 0',
                     fontWeight: 'bold',
-                    fontSize: { lg: '14px', xs: '12px' },
+                    fontSize: { lg: '22px', xs: '18px' },
                 }}
             >
                 {title}

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { Page } from '../components/Page'
 import { Grid } from '@mui/material'
+import { Page } from '../components/Page'
 import { MediaContext } from '../context/MediaContext'
 import SurveysTable from '../components/SurveysTable'
 import { NewSurvey } from '../components/NewSurvey'

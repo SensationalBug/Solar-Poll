@@ -2,10 +2,8 @@ import logo from '../assets/logo.png'
 import React, { useContext } from 'react'
 import { Grid, Typography } from '@mui/material'
 import { MediaContext } from '../context/MediaContext'
-import { faPhone } from '@fortawesome/free-solid-svg-icons'
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import CustomTooltip from './custom-components/CustomTooltip'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 
 const Header = () => {
     const { matchDownMD }: any = useContext(MediaContext)
@@ -24,7 +22,7 @@ const Header = () => {
                 />
             </Grid>
             <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-                <FontAwesomeIcon icon={faPhone} size={'1x'} color='#0A70B1' />
+                <LocalPhoneIcon sx={{fontSize:'2em'}} />
                 <CustomTooltip title={
                     <React.Fragment>
                         <Typography sx={{ color: '#000', padding: '5px 0' }}><strong>Would you rather call? It's Free!</strong></Typography>

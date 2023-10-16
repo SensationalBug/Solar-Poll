@@ -13,6 +13,7 @@ export const questionCardStyles = {
     boxShadow: "0 4px 20px 0 rgb(0 0 0 / 9%)",
   },
   cardContent: {
+    width: "100%",
     height: "100%",
     display: "flex",
     flexDirection: "column",

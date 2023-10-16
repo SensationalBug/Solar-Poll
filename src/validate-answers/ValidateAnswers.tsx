@@ -1,11 +1,10 @@
 import { useContext } from 'react'
 import CheckInput from '../components/CheckInput';
 import { QuestionContext } from '../context/QuestionsContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import QtOptionButton from '../components/questions-types/QtOptionButton';
 import { QtFormTextInput } from '../components/questions-types/QtFormTextInput';
 import QtRadioFormControl from '../components/questions-types/QtRadioFormControl';
-
 interface validateAnswersInterface {
     id: number;
     type: number;
@@ -15,21 +14,24 @@ const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
     const { update, setAnswers }: any = useContext(QuestionContext);
     const showAnswers = () => {
         if (type === 1) {
-            return answers.map((elem: any, index: number) => (
-                <QtOptionButton
-                    id={id}
-                    key={index}
-                    title={elem.title}
-                    onClick={() => update(setAnswers, id, elem.title)}
-                    icon={<FontAwesomeIcon icon={elem.img} size='4x' />} />
-            ))
+            return answers.map((elem: any, index: number) => {
+                console.log(id)
+                return (
+                    <QtOptionButton
+                        id={id}
+                        key={index}
+                        title={elem}
+                        onClick={() => update(setAnswers, id, elem)}
+                        icon={<QuestionMarkIcon sx={{ fontSize: { xs: '4em', md: '5em', lg: '6em' } }} />} />
+                )
+            })
         }
         if (type === 2) {
             return (
                 <CheckInput radioFormControl={
                     <>
                         {answers.map((elem: any, index: number) => (
-                            <QtRadioFormControl key={index} id={id} title={elem.title} />
+                            <QtRadioFormControl key={index} id={id} title={elem} />
                         ))}
                     </>
                 } />

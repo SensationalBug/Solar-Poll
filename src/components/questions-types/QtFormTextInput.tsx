@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import FormInput from '../FormInput'
-import ShowZipCode from '../ShowZipCode';
 import { Grid, Typography } from '@mui/material'
 
 interface qtFormTextInputInterface {
@@ -8,35 +7,15 @@ interface qtFormTextInputInterface {
 }
 
 export const QtFormTextInput = ({ id }: qtFormTextInputInterface) => {
-    const [zipCode, setZipCode] = useState('');
+    const [length, setLength] = useState('');
     return (
         <Grid container sx={{ height: '70%' }}>
             <Grid item xs={12} sx={{ width: '100%' }}>
                 <Grid item sx={{ display: 'flex', flexDirection: 'row', alignSelf: 'center' }}>
-                    <Grid item xs={12}>
-                        <FormInput id={id} label='Enter your zip code' setValue={setZipCode} />
+                    <Grid item xs={12} sx={{ margin: '20px 20px' }}>
+                        <FormInput id={id} label='Enter your answer here' setLength={setLength} />
+                        <Typography sx={{ textAlign: 'end', margin: '20px 0' }}>{length}/100</Typography>
                     </Grid>
-                    <Grid item xs={1}
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <ShowZipCode zipCode={zipCode} />
-                    </Grid>
-                </Grid>
-                <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    {zipCode === '1' ? (
-                        <>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: 20, padding: '10px 0', textAlign: 'center' }}>Solar incentives in Massachusetts:</Typography>
-                            <Grid>
-                                <Typography sx={{ padding: '5px 0' }}>Local incentives possible</Typography>
-                                <Typography sx={{ padding: '5px 0' }}>$0 down program available</Typography>
-                                <Typography sx={{ padding: '5px 0' }}>Federal Tax Credit (Average $5,439)</Typography>
-                            </Grid>
-                        </>
-                    ) : null}
                 </Grid>
             </Grid>
         </Grid>

@@ -1,12 +1,15 @@
+import {  useState } from 'react'
 import { Grid } from '@mui/material'
-import { useContext, useState } from 'react'
 import { ContactForm } from './ContactForm'
 import QuestionCard from './cards/QuestionCard'
-import { QuestionContext } from '../context/QuestionsContext'
 
-const Home = () => {
+interface survey {
+    id?: string;
+    survey?: any;
+}
+
+const Home = ({ survey }: survey) => {
     const [slideToShow, setSlideToShow] = useState(1);
-    const { questions }: any = useContext(QuestionContext)
     return (
         <Grid container
             sx={{
@@ -16,28 +19,30 @@ const Home = () => {
                 justifyContent: 'center',
             }}
         >
-            {questions.length < slideToShow ? (
+            {survey &&
+                survey.questions.length < slideToShow ? (
                 <ContactForm
                     slideToShow={slideToShow}
                     setSlideToShow={setSlideToShow} />
-            ) : (
-                questions.map((elem: any) => {
-                    const { id, title, text, type, answers }: any = elem;
+            ) : (survey?.questions &&
+                survey?.questions.map((elem: any, index: any) => {
+                    const { question, description, type, answers }: any = elem;
                     return (
                         <QuestionCard
-                            key={id}
-                            id={id}
-                            text={text}
+                            id={index + 1}
+                            key={question}
+                            text={description}
                             type={type}
-                            title={title}
+                            title={question}
                             answers={answers}
-                            count={questions.length}
                             slideToShow={slideToShow}
                             setSlideToShow={setSlideToShow}
+                            count={survey?.questions.length}
                         />
                     )
                 })
-            )}
+            )
+            }
         </Grid>
     )
 }

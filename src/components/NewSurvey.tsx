@@ -57,7 +57,14 @@ export const NewSurvey = () => {
                     </Button>
                 </Grid>
             </Grid>
-            <NewSurveyModal open={open} setOpen={setOpen} numberSelected={numberSelected} handleDecrease={handleDecrease} handleIncrease={handleIncrease} />
+            <NewSurveyModal
+                open={open}
+                setOpen={setOpen}
+                numberSelected={numberSelected}
+                handleDecrease={handleDecrease}
+                handleIncrease={handleIncrease}
+                setNumberSelected={setNumberSelected}
+            />
         </Grid>
     )
 }

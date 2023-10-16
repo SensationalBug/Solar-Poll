@@ -1,19 +1,19 @@
 import { useContext } from 'react';
-import { Grid, TextField } from '@mui/material'
+import { Grid, TextareaAutosize } from '@mui/material'
 import { QuestionContext } from '../context/QuestionsContext';
 
 interface formInputInterface {
     id?: number;
     label: string;
-    setValue: any;
+    setLength: any;
 }
 
-const FormInput = ({ id, label, setValue }: formInputInterface) => {
+const FormInput = ({ id, label, setLength }: formInputInterface) => {
     const { update, setAnswers }: any = useContext(QuestionContext)
 
-    const updateZipCode = (target: any) => {
+    const updateLength = (target: any) => {
         return new Promise(resolve => {
-            setValue(target.value)
+            setLength(target.value.length)
             resolve('ok');
         })
     }
@@ -25,15 +25,16 @@ const FormInput = ({ id, label, setValue }: formInputInterface) => {
                 display: 'flex',
                 alignSelf: 'center',
                 flexDirection: 'row',
+                justifyContent: 'center',
             }}>
-            <TextField
-                fullWidth
-                label={label}
-                variant="standard"
+            <TextareaAutosize
+                maxLength={100}
+                minRows={5}
                 onChange={
                     ({ target }: any) =>
-                        updateZipCode(target)
+                        updateLength(target)
                             .then(() => update(setAnswers, id, target.value))}
+                style={{ width: '90%', maxWidth: '90%', fontSize: '18px' }}
             />
         </Grid>
     )

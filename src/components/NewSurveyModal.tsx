@@ -10,13 +10,15 @@ interface survey {
     updateAnswer?: any;
     sendNewSurvey?: any;
     updateTitle?: any;
+    setNumberSelected?: any;
 }
 export const NewSurveyModal = ({
     open,
     setOpen,
     numberSelected,
     handleDecrease,
-    handleIncrease }: any) => {
+    handleIncrease,
+    setNumberSelected }: any) => {
     const { sendNewSurvey, update, updateAnswer, updateTitle }: survey = React.useContext(SurveysContext)
     return (
         <Modal
@@ -46,24 +48,27 @@ export const NewSurveyModal = ({
                     ))}
                 </Grid>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                    <Button
+                    <Button sx={{ margin: '10px 0' }}
+                        color='error'
                         variant='contained'
                         onClick={() => handleDecrease()}
                     >
                         Quitar pregunta
                     </Button>
-                    <Button
+                    <Button sx={{ margin: '10px 0' }}
                         variant='contained'
                         onClick={() => handleIncrease()}
                     >
                         Agregar pregunta
                     </Button>
-                    <Button
+                    <Button sx={{ margin: '10px 0' }}
+                        color='success'
                         variant='contained'
                         onClick={() => {
-                            setOpen(false)
-                            sendNewSurvey()
-                            updateTitle('title', '')
+                            setOpen(false);
+                            sendNewSurvey();
+                            setNumberSelected(1);
+                            updateTitle('title', '');
                         }}
                     >
                         Guardar encuesta

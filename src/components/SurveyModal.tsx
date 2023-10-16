@@ -4,6 +4,7 @@ import { Grid, Modal, Button } from '@mui/material';
 
 
 export const SurveyModal = ({ data, openSurveyModal, setOpenSurveyModal }: any) => {
+    const entries = data ? Object.entries(data[1]?.questions) : []
     return (
         <Modal
             open={openSurveyModal}
@@ -27,31 +28,25 @@ export const SurveyModal = ({ data, openSurveyModal, setOpenSurveyModal }: any) 
                     flexDirection: 'column',
                     bgcolor: 'background.paper',
                 }}>
-                    {Object.entries(data[1]?.questions).map((elem: any, index) => {
-                        console.log(data[1]?.questions[0].answers)
+                    {entries.map((elem: any, index) => {
                         return (
-                            <>
-                                <Grid item sx={{ width: '95%', margin: '5px 0' }}>Pregunta:{elem[1].description}</Grid>
-                                <Grid item sx={{ width: '95%', margin: '5px 0' }}>Descripcion:{elem[1].question}</Grid>
-                                <Grid item sx={{ width: '95%', margin: '5px 0', display: { xs: 'unset', md: 'flex' }, justifyContent: 'space-between' }}>Tipo:{elem[1].type}</Grid>
-                                <Grid item sx={{ width: '95%', margin: '5px 0' }}>
-                                    {data[1]?.questions[0].answers ? (
-                                        data[1]?.questions[0].answers.map((elem: any, answerIndex: any) => (
-                                            <div>Respuesta:{elem}</div>
-                                        ))
-                                    ) : (
-                                        null
-                                    )}
+                            <Grid container sx={{ border: '1px solid #808080', margin: '10px 0', padding: '10px' }}>
+                                <Grid item xs={12} sx={{ margin: '5px 0' }}>Pregunta:{elem[1].question}</Grid>
+                                <Grid item xs={12} sx={{ margin: '5px 0' }}>Descripcion:{elem[1].description}</Grid>
+                                <Grid item xs={12} sx={{ margin: '5px 0', display: { xs: 'unset', md: 'flex' }, justifyContent: 'space-between' }}>Tipo:{elem[1].type}</Grid>
+                                <Grid item xs={12} sx={{ margin: '5px 0' }}>
+                                    {data[1]?.questions[index].answers ? (
+                                        Object.entries(data[1]?.questions[index].answers).map((elem: any, answerIndex: any) => <div>Respuesta:{elem[1]}</div>)
+                                    ) : null}
                                 </Grid>
-                            </>
+                            </Grid>
                         )
                     })}
                 </Grid>
                 <Button
                     color='error'
                     variant='contained'
-                    onClick={() => console.log(data[1].questions)}
-                    // onClick={() => setOpenSurveyModal(!openSurveyModal)}
+                    onClick={() => setOpenSurveyModal(!openSurveyModal)}
                     sx={{
                         right: 0,
                         position: 'absolute',

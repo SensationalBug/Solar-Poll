@@ -11,7 +11,10 @@ interface surveysContextInterface {
 }
 
 interface newSurvey {
-    title?: any;
+    type?: any;
+    answers?: any;
+    question?: any;
+    description?: any;
 }
 
 const SurveysProvider = ({ children }: surveysContextInterface) => {
@@ -22,7 +25,8 @@ const SurveysProvider = ({ children }: surveysContextInterface) => {
         date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}:${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
     })
     const [surveys, setSurveys] = useState([]);
-    const [newSurvey, setNewSurvey] = useState<newSurvey>({});
+    const [newSurvey, setNewSurvey] = useState<newSurvey>({
+    });
 
     const updateTitle = (field: any, value: any) => {
         setNewSurveyTitle((prevState: any) => ({ ...prevState, [field]: value }))
@@ -54,16 +58,13 @@ const SurveysProvider = ({ children }: surveysContextInterface) => {
     }
 
     const sendNewSurvey = () => {
-        // if(!newSurvey){
-        //     swal("Por favor complete todos los campos", {
-        //         icon: "Error",
-        //     });
-        //     return;
-        // }
-        set(ref(database, `surveys/${uuid()}`), {
-            'data': newSurveyTitle,
-            'questions': newSurvey
-        }).then(() => setNewSurvey({}))
+        return new Promise((resolve) => {
+            set(ref(database, `surveys/${uuid()}`), {
+                'data': newSurveyTitle,
+                'questions': newSurvey
+            }).then(() => setNewSurvey({}))
+            resolve('ok')
+        })
     }
 
     const getSurveys = useCallback(() => {

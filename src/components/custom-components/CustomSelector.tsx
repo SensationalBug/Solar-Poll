@@ -2,9 +2,11 @@ import * as React from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { MenuItem, InputLabel, FormControl, Grid } from '@mui/material';
 
-export const CustomSelector = ({ get, set, update, index }: any) => {
+export const CustomSelector = ({ get, set, update, index, setAnswerCuantity, setDisableButton }: any) => {
 
     const handleChange = (event: SelectChangeEvent) => {
+        setAnswerCuantity(0)
+        setDisableButton(true)
         set(event.target.value);
         update(index, 'type', event.target.value);
     };

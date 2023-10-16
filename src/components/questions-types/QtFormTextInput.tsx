@@ -7,7 +7,7 @@ interface qtFormTextInputInterface {
 }
 
 export const QtFormTextInput = ({ id }: qtFormTextInputInterface) => {
-    const [length, setLength] = useState('');
+    const [length, setLength] = useState(0);
     return (
         <Grid container sx={{ height: '70%' }}>
             <Grid item xs={12} sx={{ width: '100%' }}>

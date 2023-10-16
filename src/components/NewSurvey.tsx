@@ -1,17 +1,12 @@
 import React from 'react'
 import { NewSurveyModal } from './NewSurveyModal';
-// import { MediaContext } from '../context/MediaContext'
-// import Add from '@mui/icons-material/AddCircleOutlineOutlined';
-import { Grid, Typography, Button, TextField } from '@mui/material'
 import { SurveysContext } from '../context/SurveysContext';
-// import { CustomNumberSelector } from './custom-components/CustomNumberSelector';
+import { Grid, Typography, Button, TextField } from '@mui/material'
 
 export const NewSurvey = () => {
     const [open, setOpen] = React.useState(false);
     const [numberSelected, setNumberSelected] = React.useState(1)
     const { updateTitle, newSurveyTitle }: any = React.useContext(SurveysContext)
-    // const { matchDownMD }: any = React.useContext(MediaContext)
-
     const handleDecrease = () => {
         numberSelected === 1 ? setNumberSelected(1) : setNumberSelected(numberSelected - 1)
     }
@@ -46,7 +41,6 @@ export const NewSurvey = () => {
                     <TextField value={newSurveyTitle.title} onChange={(elem: any) => updateTitle('title', elem.target.value)} fullWidth label="Nombre de la encuesta" variant="outlined" />
                 </Grid>
                 <Grid item sx={{ width: '90%', display: 'flex', justifyContent: 'space-between' }}>
-                    {/* <CustomNumberSelector numberSelected={numberSelected} handleDecrease={handleDecrease} handleIncrease={handleIncrease} /> */}
                     <Button
                         variant='contained'
                         onClick={() => setOpen(true)}

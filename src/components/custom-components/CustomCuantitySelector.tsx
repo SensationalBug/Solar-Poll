@@ -2,16 +2,15 @@ import * as React from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { MenuItem, InputLabel, FormControl, Grid } from '@mui/material';
 
-export const CustomCuantitySelector = ({ get, set, update, index }: any) => {
+export const CustomCuantitySelector = ({ get, set, update, index, questionType }: any) => {
 
     const handleChange = (event: SelectChangeEvent) => {
         set(event.target.value);
         update(index, 'answers', event.target.value);
     };
-
     return (
         <Grid item xs={12} md={5} sx={{ margin: '5px 0' }}>
-            <FormControl variant="standard" sx={{ width: '100%' }}>
+            <FormControl disabled={questionType === 3 ? true : false} variant="standard" sx={{ width: '100%' }}>
                 <InputLabel>Cantidad de respuestas</InputLabel>
                 <Select
                     value={get}
@@ -23,6 +22,6 @@ export const CustomCuantitySelector = ({ get, set, update, index }: any) => {
                     <MenuItem value={4}>4</MenuItem>
                 </Select>
             </FormControl>
-        </Grid>
+        </Grid >
     );
 }

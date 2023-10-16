@@ -4,7 +4,7 @@ import { CustomSelector } from '../custom-components/CustomSelector'
 import { CustomCuantitySelector } from '../custom-components/CustomCuantitySelector';
 import { SurveysContext } from '../../context/SurveysContext';
 
-export const NewQuestionCard = ({ index }: any) => {
+export const NewQuestionCard = ({ index, setDisableButton }: any) => {
     const { update, updateAnswer }: any = React.useContext(SurveysContext)
     const [questionType, setQuestionType] = React.useState('');
     const [answerCuantity, setAnswerCuantity] = React.useState('');
@@ -26,8 +26,19 @@ export const NewQuestionCard = ({ index }: any) => {
                 <TextField onChange={(elem: any) => update(index, 'description', elem.target.value)} fullWidth label="Inserte una descripcion" variant="standard" />
             </Grid>
             <Grid item sx={{ width: '95%', margin: '5px 0', display: { xs: 'unset', md: 'flex' }, justifyContent: 'space-between' }}>
-                <CustomSelector index={index} update={update} get={questionType} set={setQuestionType} />
-                <CustomCuantitySelector index={index} update={update} get={answerCuantity} set={setAnswerCuantity} />
+                <CustomSelector
+                    index={index}
+                    update={update}
+                    get={questionType}
+                    set={setQuestionType}
+                    setAnswerCuantity={setAnswerCuantity}
+                    setDisableButton={setDisableButton} />
+                <CustomCuantitySelector
+                    index={index}
+                    update={update}
+                    get={answerCuantity}
+                    set={setAnswerCuantity}
+                    questionType={questionType} />
             </Grid>
             <Grid item sx={{ width: '95%', margin: '5px 0' }}>
                 {answerCuantity ? (

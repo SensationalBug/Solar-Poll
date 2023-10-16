@@ -19,7 +19,8 @@ export const NewSurveyModal = ({
     handleDecrease,
     handleIncrease,
     setNumberSelected }: any) => {
-    const { sendNewSurvey, update, updateAnswer, updateTitle }: survey = React.useContext(SurveysContext)
+    const { sendNewSurvey, updateTitle }: survey = React.useContext(SurveysContext)
+    const [disableButton, setDisableButton] = React.useState(false)
     return (
         <Modal
             open={open}
@@ -44,7 +45,10 @@ export const NewSurveyModal = ({
                     bgcolor: 'background.paper',
                 }}>
                     {[...Array(numberSelected)].map((_, index) => (
-                        <NewQuestionCard index={index} update={update} updateAnswer={updateAnswer} />
+                        <NewQuestionCard
+                            index={index}
+                            setDisableButton={setDisableButton}
+                        />
                     ))}
                 </Grid>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -61,14 +65,18 @@ export const NewSurveyModal = ({
                     >
                         Agregar pregunta
                     </Button>
-                    <Button sx={{ margin: '10px 0' }}
+                    <Button
+                        disabled={disableButton ? false : true}
                         color='success'
                         variant='contained'
+                        sx={{ margin: '10px 0' }}
                         onClick={() => {
-                            setOpen(false);
-                            sendNewSurvey();
-                            setNumberSelected(1);
-                            updateTitle('title', '');
+                            sendNewSurvey().then(() => {
+                                setOpen(false);
+                                setNumberSelected(1);
+                                setDisableButton(false);
+                                updateTitle('title', '');
+                            });
                         }}
                     >
                         Guardar encuesta

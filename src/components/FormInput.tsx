@@ -34,7 +34,7 @@ const FormInput = ({ id, label, setLength }: formInputInterface) => {
                     ({ target }: any) =>
                         updateLength(target)
                             .then(() => update(setAnswers, id, target.value))}
-                style={{ width: '90%', maxWidth: '90%', fontSize: '18px' }}
+                style={{ width: '90%', maxWidth: '90%', fontSize: '18px', resize: 'none' }}
             />
         </Grid>
     )

@@ -1,6 +1,7 @@
 import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
 import { getDatabase, ref, set, onValue } from 'firebase/database'
 import { createContext, useEffect, useState, useCallback } from "react";
+import swal from "sweetalert";
 
 export const QuestionContext = createContext({});
 
@@ -16,6 +17,7 @@ const QuestionProvider = ({ children }: props) => {
     const [uData, setUdata] = useState({
         name: '',
         email: '',
+        phoneNumber: '',
         date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
     })
 
@@ -24,9 +26,22 @@ const QuestionProvider = ({ children }: props) => {
     }
 
     const sendAnswers = () => {
+        if (!uData.name || !uData.email || !uData.phoneNumber) {
+            swal('Recordatorio', 'Completa todos los campos', 'warning')
+            return;
+        }
         set(ref(database, `answers/${uData?.name}`), {
             'respuestas': fAnswers,
             'data': uData,
+        }).then(() => {
+            setUdata({
+                name: '',
+                email: '',
+                phoneNumber: '',
+                date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
+            })
+            setAnswers({})
+            swal('Gracias', 'Su respuesta ha sido enviada', 'success').then(() => window.location.reload())
         })
     }
 

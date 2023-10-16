@@ -7,7 +7,8 @@ import {
     CardActions,
     CardContent,
 } from '@mui/material'
-import { useContext } from 'react'
+import { MuiTelInput } from 'mui-tel-input'
+import { useContext, useState } from 'react'
 import CustomButton from './custom-components/CustomButton'
 import { QuestionContext } from '../context/QuestionsContext';
 import { questionCardStyles } from '../styles/questionCardStyles'
@@ -19,6 +20,7 @@ interface contactFormInterface {
 
 export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterface) => {
     const { sendAnswers, update, setUdata }: any = useContext(QuestionContext)
+    const [value, setValue] = useState('')
     const toLeftSlide = keyframes`
     from {
         opacity: 0;
@@ -37,7 +39,14 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                 borderRadius: { xs: 0, md: 4 },
                 animation: `${toLeftSlide} .3s 1 ease-out`
             }]}>
-                <CardContent sx={questionCardStyles.cardContent}>
+                <CardContent sx={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                }}>
                     <Grid container>
                         <Grid container sx={questionCardStyles.textContent}>
                             <Typography sx={questionCardStyles.title}>Ingresa tus datos de contacto</Typography>
@@ -46,20 +55,24 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                             <Typography sx={questionCardStyles.text}>Permitenos estar un paso mas cerca de ti con este formulario con el cual podremos ponernos en contacto contigo.</Typography>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sx={questionCardStyles.questionContent}>
+                    <Grid item xs={12} sx={{
+                        width: '90%'
+                    }}>
                         <Grid
                             container
                             sx={{
                                 display: 'flex',
+                                margin: '20px 0',
                                 alignSelf: 'center',
                                 flexDirection: 'row',
+                                justifyContent: 'center',
                             }}>
                             <TextField
-                                fullWidth
                                 label="Nombre"
                                 variant="standard"
                                 onChange={
                                     ({ target }: any) => update(setUdata, 'name', target.value)}
+                                sx={{ width: '100%' }}
                             />
                         </Grid>
                         <Grid
@@ -68,14 +81,20 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                                 display: 'flex',
                                 alignSelf: 'center',
                                 flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                margin: '20px 0'
                             }}>
                             <TextField
-                                fullWidth
                                 label="Correo"
                                 variant="standard"
                                 onChange={
                                     ({ target }: any) => update(setUdata, 'email', target.value)}
+                                sx={{ width: '50%' }}
                             />
+                            <MuiTelInput style={{ width: '40%' }} defaultCountry='US' value={value} onChange={(value: any) => {
+                                setValue(value);
+                                update(setUdata, 'phoneNumber', value)
+                            }} />
                         </Grid>
                     </Grid>
                 </CardContent>

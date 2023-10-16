@@ -22,7 +22,7 @@ const SurveysProvider = ({ children }: surveysContextInterface) => {
     const database = getDatabase(firebaseApp)
     const [newSurveyTitle, setNewSurveyTitle] = useState({
         title: '',
-        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}:${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}.${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
     })
     const [surveys, setSurveys] = useState([]);
     const [newSurvey, setNewSurvey] = useState<newSurvey>({

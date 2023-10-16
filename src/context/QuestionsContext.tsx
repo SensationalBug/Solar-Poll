@@ -18,7 +18,7 @@ const QuestionProvider = ({ children }: props) => {
         name: '',
         email: '',
         phoneNumber: '',
-        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
+        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}.${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
     })
 
     const update = (set: any, field: string, value: string) => {

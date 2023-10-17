@@ -37,6 +37,7 @@ export const Surveys = () => {
                 }}>
                 <Grid item xs={6} lg={8} sx={{
                     borderRadius: 3,
+                    overflow: 'auto',
                     border: '1px solid #0A70B1',
                     width: { xs: '100%', md: '90%' },
                     height: { xs: '100%', md: '96%' },

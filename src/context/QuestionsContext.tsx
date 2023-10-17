@@ -1,7 +1,7 @@
-import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
-import { getDatabase, ref, set, onValue } from 'firebase/database'
-import { createContext, useEffect, useState, useCallback } from "react";
 import swal from "sweetalert";
+import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
+import { createContext, useEffect, useState, useCallback } from "react";
+import { getDatabase, ref, set, onValue, get, child } from 'firebase/database'
 
 export const QuestionContext = createContext({});
 
@@ -17,12 +17,28 @@ const QuestionProvider = ({ children }: props) => {
     const [uData, setUdata] = useState({
         name: '',
         email: '',
+        surveyId: '',
         phoneNumber: '',
         date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}.${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
     })
 
+    const resetData = () => {
+        setUdata({
+            name: '',
+            email: '',
+            surveyId: '',
+            phoneNumber: '',
+            date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
+        })
+        setAnswers({})
+        swal('Gracias', 'Su respuesta ha sido enviada', 'success').then(() => window.location.reload())
+    }
+
     const update = (set: any, field: string, value: string) => {
-        set((prev: any) => ({ ...prev, [field]: value }))
+        return new Promise((resolve) => {
+            set((prev: any) => ({ ...prev, [field]: value }))
+            resolve("ok")
+        })
     }
 
     const sendAnswers = () => {
@@ -30,26 +46,33 @@ const QuestionProvider = ({ children }: props) => {
             swal('Recordatorio', 'Completa todos los campos', 'warning')
             return;
         }
-        set(ref(database, `answers/${uData?.name}`), {
-            'respuestas': fAnswers,
-            'data': uData,
-        }).then(() => {
-            setUdata({
-                name: '',
-                email: '',
-                phoneNumber: '',
-                date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
-            })
-            setAnswers({})
-            swal('Gracias', 'Su respuesta ha sido enviada', 'success').then(() => window.location.reload())
+        get(child(ref(getDatabase()), `answers/`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const values = []
+                for (let val in Object.entries(snapshot.val())) {
+                    values.push(parseInt(Object.entries(snapshot.val())[val][0]))
+                }
+                set(ref(database, `answers/${Math.max(...values) + 1}`), {
+                    'respuestas': fAnswers,
+                    'data': uData,
+                }).then(() => resetData())
+            } else {
+                set(ref(database, `answers/1`), {
+                    'respuestas': fAnswers,
+                    'data': uData,
+                }).then(() => resetData())
+            }
+        }).catch((error) => {
+            console.error(error);
         })
+
     }
 
     const getAnswers = useCallback(() => {
         const dataRef = ref(database, 'answers/')
         onValue(dataRef, (snapshot) => {
             const data = snapshot.val();
-            setUanswers(data);
+            data ? setUanswers(data) : setUanswers([])
         })
     }, [database])
 

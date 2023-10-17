@@ -1,8 +1,8 @@
 import swal from 'sweetalert';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
 import { createContext, useCallback, useEffect, useState } from 'react';
-import { getDatabase, ref, set, onValue, remove } from 'firebase/database'
+import { getDatabase, ref, set, onValue, remove, get, child } from 'firebase/database'
 
 export const SurveysContext = createContext({});
 
@@ -59,10 +59,26 @@ const SurveysProvider = ({ children }: surveysContextInterface) => {
 
     const sendNewSurvey = () => {
         return new Promise((resolve) => {
-            set(ref(database, `surveys/${uuid()}`), {
-                'data': newSurveyTitle,
-                'questions': newSurvey
-            }).then(() => setNewSurvey({}))
+            get(child(ref(getDatabase()), `surveys/`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const values = []
+                    for (let val in Object.entries(snapshot.val())) {
+                        values.push(parseInt(Object.entries(snapshot.val())[val][0]))
+                    }
+                    set(ref(database, `surveys/${Math.max(...values) + 1}`), {
+                        'data': newSurveyTitle,
+                        'questions': newSurvey
+                    }).then(() => setNewSurvey({}))
+                } else {
+                    set(ref(database, `surveys/1`), {
+                        'data': newSurveyTitle,
+                        'questions': newSurvey
+                    }).then(() => setNewSurvey({}))
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+
             resolve('ok')
         })
     }

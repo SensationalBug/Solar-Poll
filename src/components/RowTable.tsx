@@ -10,12 +10,14 @@ import {
     Typography,
     IconButton,
 } from '@mui/material';
-import React from 'react'
+import React, { useContext } from 'react'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { SurveysContext } from '../context/SurveysContext';
 
 const RowTable = ({ row }: any) => {
     const [open, setOpen] = React.useState(false);
+    const { surveys }: any = useContext(SurveysContext)
     const elementosDiv = Object.keys(row.respuestas).map((clave) => (
         <TableRow key={clave}>
             <TableCell>{clave}</TableCell>

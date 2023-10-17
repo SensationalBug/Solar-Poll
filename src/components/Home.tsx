@@ -1,14 +1,14 @@
-import {  useState } from 'react'
+import { useState } from 'react'
 import { Grid } from '@mui/material'
 import { ContactForm } from './ContactForm'
 import QuestionCard from './cards/QuestionCard'
 
 interface survey {
-    id?: string;
+    id?: any;
     survey?: any;
 }
 
-const Home = ({ survey }: survey) => {
+const Home = ({ survey, id }: survey) => {
     const [slideToShow, setSlideToShow] = useState(1);
     return (
         <Grid container
@@ -22,6 +22,7 @@ const Home = ({ survey }: survey) => {
             {survey &&
                 survey.questions.length < slideToShow ? (
                 <ContactForm
+                    id={id}
                     slideToShow={slideToShow}
                     setSlideToShow={setSlideToShow} />
             ) : (survey?.questions &&

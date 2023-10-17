@@ -14,11 +14,12 @@ import { QuestionContext } from '../context/QuestionsContext';
 import { questionCardStyles } from '../styles/questionCardStyles'
 
 interface contactFormInterface {
+    id?: any;
     slideToShow: number;
     setSlideToShow: any;
 }
 
-export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterface) => {
+export const ContactForm = ({ id, slideToShow, setSlideToShow }: contactFormInterface) => {
     const { sendAnswers, update, setUdata }: any = useContext(QuestionContext)
     const [value, setValue] = useState('')
     const toLeftSlide = keyframes`
@@ -107,7 +108,9 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                         text='Enviar'
                         outline={false}
                         bgColor='#0ab110'
-                        onClick={async () => sendAnswers()}
+                        onClick={async () =>
+                            update(setUdata, 'surveyId', id)
+                                .then(() => sendAnswers())}
                     />
                 </CardActions>
             </Card>

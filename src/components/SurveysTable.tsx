@@ -10,7 +10,7 @@ export default function SurveysTable() {
     const [open, setOpen] = useState(false)
     const [selectedSurvey, setSelectedSurvey] = useState()
     const { surveys, deleteSurvey }: any = useContext(SurveysContext)
-    const entries = Object.entries(surveys);
+    const entries = Object.entries(surveys).reverse();
 
     const setData = (data: any) => {
         return new Promise((resolve) => {

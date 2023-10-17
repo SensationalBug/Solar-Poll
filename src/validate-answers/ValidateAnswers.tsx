@@ -15,7 +15,6 @@ const ValidateAnswers = ({ id, answers, type }: validateAnswersInterface) => {
     const showAnswers = () => {
         if (type === 1) {
             return answers.map((elem: any, index: number) => {
-                console.log(id)
                 return (
                     <QtOptionButton
                         id={id}

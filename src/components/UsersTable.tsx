@@ -14,13 +14,12 @@ import { QuestionContext } from '../context/QuestionsContext';
 
 const UsersTable = () => {
     const { uAnswers }: any = React.useContext(QuestionContext);
-    const entries = Object.entries(uAnswers);
+    const entries = Object.entries(uAnswers).reverse();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
-        console.log(event)
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {

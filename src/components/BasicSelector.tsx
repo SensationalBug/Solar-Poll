@@ -5,6 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { QuestionContext } from '../context/QuestionsContext';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 export const BasicSelector = ({ options, selectedSurvey, setSelectedSurvey }: any) => {
     const entries = Object.entries(options).reverse()
@@ -18,9 +19,11 @@ export const BasicSelector = ({ options, selectedSurvey, setSelectedSurvey }: an
     };
 
     return (
-        <Box sx={{ minWidth: 200, maxWidth: 200 }}>
+        <Box sx={{ minWidth: 50, maxWidth: { xs: 100, lg: 200 } }}>
             <FormControl fullWidth >
-                <InputLabel sx={{ color: '#fff' }}>Filtro</InputLabel>
+                <InputLabel sx={{ color: '#fff' }}>
+                    <FilterAltIcon />
+                </InputLabel>
                 <Select
                     value={selectedSurvey}
                     onChange={handleChange}

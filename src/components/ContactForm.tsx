@@ -13,6 +13,7 @@ import CustomButton from './custom-components/CustomButton'
 import { QuestionContext } from '../context/QuestionsContext';
 import { questionCardStyles } from '../styles/questionCardStyles'
 import { useParams } from 'react-router-dom';
+import { MediaContext } from '../context/MediaContext';
 
 interface contactFormInterface {
     id?: any;
@@ -23,6 +24,7 @@ interface contactFormInterface {
 export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterface) => {
     const { id } = useParams();
     const { sendAnswers, update, setUdata }: any = useContext(QuestionContext)
+    const { matchDownLG }: any = useContext(MediaContext)
     const [value, setValue] = useState('')
     const toLeftSlide = keyframes`
     from {
@@ -35,7 +37,7 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
       }
   `;
     return (
-        <Grid item xs={12} lg={10} xl={6} sx={[questionCardStyles.container]}>
+        <Grid item xs={11} lg={10} xl={6} sx={[questionCardStyles.container]}>
             <Card sx={[questionCardStyles.card, {
                 minHeight: '70vh',
                 position: 'relative',
@@ -90,13 +92,18 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                                 variant="standard"
                                 onChange={
                                     ({ target }: any) => update(setUdata, 'email', target.value)}
-                                sx={{ width: '50%' }}
+                                sx={{ width: { xs: '100%', lg: '50%' } }}
                             />
-                            <MuiTelInput style={{ width: '40%' }} defaultCountry='US' value={value} onChange={(value: any) => {
-                                setValue(value);
-                                update(setUdata, 'surveyId', id)
-                                update(setUdata, 'phoneNumber', value)
-                            }} />
+                            <MuiTelInput
+                                value={value}
+                                defaultCountry='US'
+                                onChange={(value: any) => {
+                                    setValue(value);
+                                    update(setUdata, 'surveyId', id)
+                                    update(setUdata, 'phoneNumber', value)
+                                }}
+                                style={{ width: matchDownLG ? '100%' : '40%', margin: matchDownLG ? '40px 0' : '0px' }}
+                            />
                         </Grid>
                     </Grid>
                 </CardContent>

@@ -10,8 +10,9 @@ interface mediaProviderInterface {
 const MediaProvider = ({ children }: mediaProviderInterface) => {
     const theme = useTheme();
     const matchDownMD = useMediaQuery(theme.breakpoints.down('md'))
+    const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'))
     return (
-        <MediaContext.Provider value={{ matchDownMD }}>
+        <MediaContext.Provider value={{ matchDownMD, matchDownLG }}>
             {children}
         </MediaContext.Provider>
     )

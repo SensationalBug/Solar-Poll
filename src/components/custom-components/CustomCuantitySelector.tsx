@@ -2,15 +2,16 @@ import * as React from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { MenuItem, InputLabel, FormControl, Grid } from '@mui/material';
 
-export const CustomCuantitySelector = ({ get, set, update, index, questionType }: any) => {
+export const CustomCuantitySelector = ({ get, set, update, index, questionType, setAnswerCuantity }: any) => {
 
     const handleChange = (event: SelectChangeEvent) => {
-        set(event.target.value);
-        update(index, 'answers', event.target.value);
+        set().then(() => setAnswerCuantity(event.target.value));
+        // Esta funcion manda el valor plano par el objeto, por ahora no necesario
+        // update(index, 'answers', event.target.value);
     };
     return (
         <Grid item xs={12} md={5} sx={{ margin: '5px 0' }}>
-            <FormControl disabled={questionType === 3 ? true : false} variant="standard" sx={{ width: '100%' }}>
+            <FormControl disabled={questionType === 3 || !questionType ? true : false} variant="standard" sx={{ width: '100%' }}>
                 <InputLabel>Cantidad de respuestas</InputLabel>
                 <Select
                     value={get}

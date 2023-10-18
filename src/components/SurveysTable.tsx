@@ -34,7 +34,7 @@ export default function SurveysTable() {
             </Grid>
             <Grid>
                 {entries.map((elem: any, index) => (
-                    <Grid container sx={{
+                    <Grid key={index} container sx={{
                         transition: '.5s',
                         padding: '10px 20px',
                         borderBottom: '1px solid #808080',
@@ -49,7 +49,7 @@ export default function SurveysTable() {
                             setData(elem).then(() => setOpen(true))
                         }}
                             sx={{ cursor: 'pointer' }}>
-                            <Typography key={index}
+                            <Typography 
                                 sx={{
                                     color: '#000',
                                     fontSize: '1.5em',

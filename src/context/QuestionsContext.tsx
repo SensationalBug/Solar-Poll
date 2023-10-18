@@ -72,6 +72,21 @@ const QuestionProvider = ({ children }: props) => {
         })
     }, [database])
 
+    const getAnswersByID = (id: number) => {
+        return new Promise(resolve => {
+            const dataRef = ref(database, `answers/`)
+            onValue(dataRef, (snapshot) => {
+                const selectedAnswers: any = []
+                const data = Object.entries(snapshot.val());
+                data.map((elem: any, index) => (
+                    elem[1].data.surveyId === id ?
+                        selectedAnswers.push(elem[1]) : []
+                ))
+                resolve(selectedAnswers)
+            })
+        })
+    }
+
     useEffect(() => {
         getAnswers()
     }, [getAnswers])
@@ -85,6 +100,8 @@ const QuestionProvider = ({ children }: props) => {
             update,
             setUdata,
             setAnswers,
+            getAnswersByID,
+            setUanswers
         }}>
             {children}
         </QuestionContext.Provider>

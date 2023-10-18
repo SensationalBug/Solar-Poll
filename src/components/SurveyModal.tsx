@@ -30,13 +30,13 @@ export const SurveyModal = ({ data, openSurveyModal, setOpenSurveyModal }: any) 
                 }}>
                     {entries.map((elem: any, index) => {
                         return (
-                            <Grid container sx={{ border: '1px solid #808080', margin: '10px 0', padding: '10px' }}>
+                            <Grid key={index} container sx={{ border: '1px solid #808080', margin: '10px 0', padding: '10px' }}>
                                 <Grid item xs={12} sx={{ margin: '5px 0' }}>Pregunta: {elem[1].question}</Grid>
                                 <Grid item xs={12} sx={{ margin: '5px 0' }}>Descripcion: {elem[1].description}</Grid>
                                 <Grid item xs={12} sx={{ margin: '5px 0', display: { xs: 'unset', md: 'flex' }, justifyContent: 'space-between' }}>Tipo: {elem[1].type}</Grid>
                                 <Grid item xs={12} sx={{ margin: '5px 0' }}>
                                     {data[1]?.questions[index].answers ? (
-                                        Object.entries(data[1]?.questions[index].answers).map((elem: any, answerIndex: any) => <div>Respuesta {answerIndex + 1}: {elem[1]}</div>)
+                                        Object.entries(data[1]?.questions[index].answers).map((elem: any, answerIndex: any) => <div key={answerIndex}>Respuesta {answerIndex + 1}: {elem[1]}</div>)
                                     ) : null}
                                 </Grid>
                             </Grid>

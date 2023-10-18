@@ -10,17 +10,17 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import RowTable from './RowTable';
-import { QuestionContext } from '../context/QuestionsContext';
 import { BasicSelector } from './BasicSelector';
 import { SurveysContext } from '../context/SurveysContext';
+import { QuestionContext } from '../context/QuestionsContext';
 
 const UsersTable = () => {
-    const { uAnswers }: any = React.useContext(QuestionContext);
     const { surveys }: any = React.useContext(SurveysContext);
+    const { uAnswers }: any = React.useContext(QuestionContext);
     const entries = Object.entries(uAnswers).reverse();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedSurvey, setSelectedSurvey] = React.useState('');
+    const [page, setPage] = React.useState(0);
 
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -55,7 +55,7 @@ const UsersTable = () => {
                 </Table>
             </TableContainer>
             <TablePagination sx={{ backgroundColor: '#0A70B1', color: '#fff', fontWeight: 'bold' }}
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[5, 10, 20]}
                 component="div"
                 count={Object.entries(uAnswers).length}
                 rowsPerPage={rowsPerPage}

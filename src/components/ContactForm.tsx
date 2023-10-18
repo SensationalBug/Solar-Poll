@@ -58,9 +58,7 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                             <Typography sx={questionCardStyles.text}>Permitenos estar un paso mas cerca de ti con este formulario con el cual podremos ponernos en contacto contigo.</Typography>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sx={{
-                        width: '90%'
-                    }}>
+                    <Grid item xs={12} sx={{ width: '90%' }}>
                         <Grid
                             container
                             sx={{
@@ -73,9 +71,9 @@ export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterfac
                             <TextField
                                 label="Nombre"
                                 variant="standard"
+                                sx={{ width: '100%' }}
                                 onChange={
                                     ({ target }: any) => update(setUdata, 'name', target.value)}
-                                sx={{ width: '100%' }}
                             />
                         </Grid>
                         <Grid

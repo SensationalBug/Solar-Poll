@@ -7,9 +7,15 @@ import { SurveysContext } from '../../context/SurveysContext';
 export const NewQuestionCard = ({ index, setDisableButton }: any) => {
     const { update, updateAnswer }: any = React.useContext(SurveysContext)
     const [questionType, setQuestionType] = React.useState('');
-    const [answerCuantity, setAnswerCuantity] = React.useState('');
+    const [answerCuantity, setAnswerCuantity] = React.useState(0);
+    const addNewAnswer = () => {
+        return new Promise(resolve => {
+            setAnswerCuantity(0)
+            resolve('ok')
+        })
+    }
     return (
-        <Grid item key={index} container xs={10}
+        <Grid item container xs={10}
             sx={{
                 margin: 2,
                 padding: 1,
@@ -31,19 +37,22 @@ export const NewQuestionCard = ({ index, setDisableButton }: any) => {
                     update={update}
                     get={questionType}
                     set={setQuestionType}
+                    setDisableButton={setDisableButton}
                     setAnswerCuantity={setAnswerCuantity}
-                    setDisableButton={setDisableButton} />
+                />
                 <CustomCuantitySelector
                     index={index}
                     update={update}
+                    set={addNewAnswer}
                     get={answerCuantity}
-                    set={setAnswerCuantity}
-                    questionType={questionType} />
+                    questionType={questionType}
+                    setAnswerCuantity={setAnswerCuantity}
+                />
             </Grid>
             <Grid item sx={{ width: '95%', margin: '5px 0' }}>
                 {answerCuantity ? (
                     [...Array(answerCuantity)].map((_, answerIndex) => (
-                        <TextField onChange={(elem: any) => updateAnswer(index, answerIndex, elem.target.value)} fullWidth label="Inserte una respuesta" variant="standard" />
+                        <TextField key={answerIndex} onChange={(elem: any) => updateAnswer(index, answerIndex, elem.target.value)} fullWidth label="Inserte una respuesta" variant="standard" />
                     ))
                 ) : (
                     null

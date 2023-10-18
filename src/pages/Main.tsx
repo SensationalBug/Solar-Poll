@@ -1,20 +1,16 @@
 import { Grid } from '@mui/material'
-import Home from '../components/Home'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 
 const Main = () => {
     return (
         <Grid container sx={{
             height: '100vh',
             display: 'flex',
+            alignItems: 'center',
             flexDirection: 'column',
+            justifyContent: 'center',
             backgroundColor: '#F9F9F9',
-            justifyContent: 'space-between',
         }}>
-            <Header />
-            <Home />
-            <Footer />
+            <Grid>Aqui va el login, para ver la app ve a <strong>/dashboard</strong></Grid>
         </Grid>
     )
 }

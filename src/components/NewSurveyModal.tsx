@@ -45,10 +45,11 @@ export const NewSurveyModal = ({
                     bgcolor: 'background.paper',
                 }}>
                     {[...Array(numberSelected)].map((_, index) => (
-                        <NewQuestionCard
-                            index={index}
-                            setDisableButton={setDisableButton}
-                        />
+                            <NewQuestionCard
+                                key={index}
+                                index={index}
+                                setDisableButton={setDisableButton}
+                            />
                     ))}
                 </Grid>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-evenly' }}>

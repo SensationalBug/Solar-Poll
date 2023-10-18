@@ -1,15 +1,20 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import { QuestionContext } from '../context/QuestionsContext';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export const BasicSelector = ({ options, selectedSurvey, setSelectedSurvey }: any) => {
     const entries = Object.entries(options).reverse()
+    const { getAnswersByID, getAnswers, setUanswers }: any = React.useContext(QuestionContext);
 
     const handleChange = (event: SelectChangeEvent) => {
         setSelectedSurvey(event.target.value as string);
+        event.target.value ?
+            getAnswersByID(event.target.value).then((res: any) => setUanswers(res))
+            : getAnswers()
     };
 
     return (
@@ -21,9 +26,12 @@ export const BasicSelector = ({ options, selectedSurvey, setSelectedSurvey }: an
                     onChange={handleChange}
                     sx={{ color: '#fff' }}
                 >
-                    {entries && entries.map((elem: any, index: any) => (
-                        <MenuItem value={elem[1].data.title}>{elem[1].data.title}</MenuItem>
-                    ))}
+                    <MenuItem value={0}>Todas</MenuItem>
+                    {entries && entries.map((elem: any, index: any) => {
+                        return (
+                            <MenuItem key={index} value={elem[0]}>{elem[1].data.title}</MenuItem>
+                        )
+                    })}
                 </Select>
             </FormControl>
         </Box>

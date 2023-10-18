@@ -13,7 +13,7 @@ const Home = ({ survey }: survey) => {
     return (
         <Grid container
             sx={{
-                height: '80%',
+                height: { xs: '70%', lg: '80%' },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

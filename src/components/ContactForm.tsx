@@ -12,6 +12,7 @@ import { useContext, useState } from 'react'
 import CustomButton from './custom-components/CustomButton'
 import { QuestionContext } from '../context/QuestionsContext';
 import { questionCardStyles } from '../styles/questionCardStyles'
+import { useParams } from 'react-router-dom';
 
 interface contactFormInterface {
     id?: any;
@@ -19,7 +20,8 @@ interface contactFormInterface {
     setSlideToShow: any;
 }
 
-export const ContactForm = ({ id, slideToShow, setSlideToShow }: contactFormInterface) => {
+export const ContactForm = ({ slideToShow, setSlideToShow }: contactFormInterface) => {
+    const { id } = useParams();
     const { sendAnswers, update, setUdata }: any = useContext(QuestionContext)
     const [value, setValue] = useState('')
     const toLeftSlide = keyframes`
@@ -94,6 +96,7 @@ export const ContactForm = ({ id, slideToShow, setSlideToShow }: contactFormInte
                             />
                             <MuiTelInput style={{ width: '40%' }} defaultCountry='US' value={value} onChange={(value: any) => {
                                 setValue(value);
+                                update(setUdata, 'surveyId', id)
                                 update(setUdata, 'phoneNumber', value)
                             }} />
                         </Grid>
@@ -108,10 +111,7 @@ export const ContactForm = ({ id, slideToShow, setSlideToShow }: contactFormInte
                         text='Enviar'
                         outline={false}
                         bgColor='#0ab110'
-                        onClick={async () =>
-                            update(setUdata, 'surveyId', id)
-                                .then(() => sendAnswers())}
-                    />
+                        onClick={() => sendAnswers()} />
                 </CardActions>
             </Card>
         </Grid >

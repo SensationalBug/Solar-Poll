@@ -35,10 +35,7 @@ const QuestionProvider = ({ children }: props) => {
     }
 
     const update = (set: any, field: string, value: string) => {
-        return new Promise((resolve) => {
-            set((prev: any) => ({ ...prev, [field]: value }))
-            resolve("ok")
-        })
+        set((prev: any) => ({ ...prev, [field]: value }))
     }
 
     const sendAnswers = () => {
@@ -53,19 +50,18 @@ const QuestionProvider = ({ children }: props) => {
                     values.push(parseInt(Object.entries(snapshot.val())[val][0]))
                 }
                 set(ref(database, `answers/${Math.max(...values) + 1}`), {
-                    'respuestas': fAnswers,
                     'data': uData,
+                    'respuestas': fAnswers,
                 }).then(() => resetData())
             } else {
                 set(ref(database, `answers/1`), {
-                    'respuestas': fAnswers,
                     'data': uData,
+                    'respuestas': fAnswers,
                 }).then(() => resetData())
             }
         }).catch((error) => {
             console.error(error);
         })
-
     }
 
     const getAnswers = useCallback(() => {

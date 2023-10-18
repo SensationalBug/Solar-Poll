@@ -8,7 +8,7 @@ interface survey {
     survey?: any;
 }
 
-const Home = ({ survey, id }: survey) => {
+const Home = ({ survey }: survey) => {
     const [slideToShow, setSlideToShow] = useState(1);
     return (
         <Grid container
@@ -22,7 +22,6 @@ const Home = ({ survey, id }: survey) => {
             {survey &&
                 survey.questions.length < slideToShow ? (
                 <ContactForm
-                    id={id}
                     slideToShow={slideToShow}
                     setSlideToShow={setSlideToShow} />
             ) : (survey?.questions &&

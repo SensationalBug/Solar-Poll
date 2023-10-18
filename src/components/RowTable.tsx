@@ -10,26 +10,37 @@ import {
     Typography,
     IconButton,
 } from '@mui/material';
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
+import { SurveysContext } from '../context/SurveysContext';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { SurveysContext } from '../context/SurveysContext';
+
+interface question {
+    questions?: any;
+    question?: any;
+}
 
 const RowTable = ({ row }: any) => {
     const [open, setOpen] = React.useState(false);
-    const { surveys }: any = useContext(SurveysContext)
-    const elementosDiv = Object.keys(row.respuestas).map((clave) => (
+    const [question, setQuestion] = React.useState<question>({});
+    const { getSurveyByID }: any = React.useContext(SurveysContext);
+    useEffect(() => {
+        getSurveyByID(row.data.surveyId).then((res: any) => {
+            setQuestion(res)
+        })
+    }, [getSurveyByID, row.data.surveyId])
+    const elementosDiv = Object.keys(row.respuestas).map((clave: any) => (
         <TableRow key={clave}>
             <TableCell>{clave}</TableCell>
             <TableCell component="th" scope="row">
-                {/* {res.question} */}
+                {question && question.questions && question.questions[clave - 1] && question.questions[clave - 1].question}
             </TableCell>
             <TableCell>{row.respuestas[clave]}</TableCell>
         </TableRow>
     ))
     return (
         <React.Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+            <TableRow sx={{ '& > *': { borderBottom: 'unset' }, backgroundColor:'#F0F0F0' }}>
                 <TableCell sx={{ width: '10%' }}>
                     <IconButton
                         size="small"
@@ -61,18 +72,18 @@ const RowTable = ({ row }: any) => {
                         <Box sx={{ margin: 1 }}>
                             <Grid container sx={{ justifyContent: 'space-between' }}>
                                 <Typography variant="h6" gutterBottom component="div">
-                                    Email: {row.data.email}
+                                    <strong>Email:</strong> {row.data.email}
                                 </Typography>
                                 <Typography variant="h6" gutterBottom component="div">
-                                    Número: {row.data.email}
+                                    <strong>Número:</strong> {row.data.phoneNumber}
                                 </Typography>
                             </Grid>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
-                                    <TableRow>
-                                        <TableCell>Id</TableCell>
-                                        <TableCell>Question</TableCell>
-                                        <TableCell>Answer</TableCell>
+                                    <TableRow >
+                                        <TableCell><strong>Id</strong></TableCell>
+                                        <TableCell><strong>Question</strong></TableCell>
+                                        <TableCell><strong>Answer</strong></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

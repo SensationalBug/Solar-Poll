@@ -11,17 +11,21 @@ import {
 import * as React from 'react';
 import RowTable from './RowTable';
 import { QuestionContext } from '../context/QuestionsContext';
+import { BasicSelector } from './BasicSelector';
+import { SurveysContext } from '../context/SurveysContext';
 
 const UsersTable = () => {
     const { uAnswers }: any = React.useContext(QuestionContext);
+    const { surveys }: any = React.useContext(SurveysContext);
     const entries = Object.entries(uAnswers).reverse();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [selectedSurvey, setSelectedSurvey] = React.useState('');
+
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
-
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -31,9 +35,14 @@ const UsersTable = () => {
         <Paper sx={{ width: { xs: '100%', md: '90%', lg: '80%' }, height: '90%' }}>
             <TableContainer component={Paper} sx={{ overflow: 'auto', height: '95%' }}>
                 <Table>
-                    <TableHead sx={{ backgroundColor: '#0A70B1' }}>
+                    <TableHead sx={{ backgroundColor: '#0A70B1', textTransform: 'uppercase' }}>
                         <TableRow>
-                            <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}></TableCell>
+                            <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>
+                                <BasicSelector
+                                    options={surveys}
+                                    selectedSurvey={selectedSurvey}
+                                    setSelectedSurvey={setSelectedSurvey} />
+                            </TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>Nombre</TableCell>
                             <TableCell sx={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>Fecha</TableCell>
                         </TableRow>

@@ -35,7 +35,7 @@ export const Encuesta = () => {
             justifyContent: 'space-between',
         }}>
             <Header />
-            <Home id={id} survey={survey} />
+            <Home survey={survey} />
             <Footer />
         </Grid>
     )

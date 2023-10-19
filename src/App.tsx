@@ -1,20 +1,22 @@
-// import './App.css';
 import { router } from './routes/Router';
+import UserProvider from './context/UserContext';
 import { RouterProvider } from "react-router-dom";
 import MediaProvider from './context/MediaContext';
-import QuestionProvider from './context/QuestionsContext';
 import SurveysProvider from './context/SurveysContext';
+import QuestionProvider from './context/QuestionsContext';
 
 const App = () => {
 
   return (
-    <QuestionProvider>
-      <SurveysProvider>
-        <MediaProvider>
-          <RouterProvider router={router} />
-        </MediaProvider>
-      </SurveysProvider>
-    </QuestionProvider>
+    <UserProvider>
+      <QuestionProvider>
+        <SurveysProvider>
+          <MediaProvider>
+            <RouterProvider router={router} />
+          </MediaProvider>
+        </SurveysProvider>
+      </QuestionProvider>
+    </UserProvider>
   );
 }
 

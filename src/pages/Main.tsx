@@ -1,4 +1,6 @@
-import { Grid } from '@mui/material'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { Grid, Typography } from '@mui/material'
 
 const Main = () => {
     return (
@@ -7,10 +9,14 @@ const Main = () => {
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             backgroundColor: '#F9F9F9',
         }}>
-            <Grid>Aqui va el login, para ver la app ve a <strong>/dashboard</strong></Grid>
+            <Header />
+            <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1.5em', lg: '2em' }, textAlign: 'center' }}>
+                Actualmente no hay encuestas activas.
+            </Typography>
+            <Footer />
         </Grid>
     )
 }

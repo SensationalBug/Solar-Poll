@@ -1,5 +1,5 @@
-import swal from 'sweetalert';
 // import { v4 as uuid } from 'uuid';
+import Swal from 'sweetalert2';
 import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { getDatabase, ref, set, onValue, remove, get, child } from 'firebase/database'
@@ -39,19 +39,22 @@ const SurveysProvider = ({ children }: surveysContextInterface) => {
     }
 
     const deleteSurvey = (id: string) => {
-        swal({
-            title: "Seguro que quieres eliminar esta encuesta?",
-            text: "Una vez que clickees SI, la encuesta se eliminará",
-            icon: "warning",
-            buttons: ['No', 'Si'],
-            dangerMode: true,
+        Swal.fire({
+            title: 'Advertencia',
+            icon: 'warning',
+            html: 'Estas seguro que deseas eliminar esta encuesta?',
+            showCancelButton: true,
+            showCloseButton: true,
+            focusConfirm: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
         })
             .then((res) => {
-                if (res) {
+                if (res.isConfirmed) {
                     remove(ref(database, `surveys/${id}`)).then(() => {
-                        swal("Poof! La encuesta ha sido eliminada!", {
-                            icon: "success",
-                        });
+                        Swal.fire('Poof!',
+                            'La encuesta ha sido eliminada.',
+                            'success');
                     }).catch((err) => console.log(err))
                 }
             });

@@ -1,4 +1,4 @@
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
 import { createContext, useEffect, useState, useCallback } from "react";
 import { getDatabase, ref, set, onValue, get, child } from 'firebase/database'
@@ -31,7 +31,7 @@ const QuestionProvider = ({ children }: props) => {
             date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
         })
         setAnswers({})
-        swal('Gracias', 'Su respuesta ha sido enviada', 'success').then(() => window.location.reload())
+        Swal.fire('Gracias', 'Su respuesta ha sido enviada', 'success').then(() => window.location.reload())
     }
 
     const update = (set: any, field: string, value: string) => {
@@ -40,7 +40,7 @@ const QuestionProvider = ({ children }: props) => {
 
     const sendAnswers = () => {
         if (!uData.name || !uData.email || !uData.phoneNumber) {
-            swal('Recordatorio', 'Completa todos los campos', 'warning')
+            Swal.fire('Recordatorio', 'Completa todos los campos', 'warning')
             return;
         }
         get(child(ref(getDatabase()), `answers/`)).then((snapshot) => {

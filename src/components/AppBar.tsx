@@ -7,10 +7,10 @@ import {
     IconButton,
 } from '@mui/material'
 import Item from './Item';
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
 import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import { UserContext } from '../context/UserContext';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
@@ -37,6 +37,8 @@ const AppBar = styled(MuiAppBar, {
 export const AppBarComponent = () => {
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => setOpen(!open);
+    const { closeSession }: any = useContext(UserContext)
+
     return (
         <>
             <AppBar position="relative" open={open} sx={{ backgroundColor: '#0A70B1' }}>
@@ -59,11 +61,9 @@ export const AppBarComponent = () => {
                     >
                         Dashboard
                     </Typography>
-                    <Link to={'/'}>
-                        <IconButton>
-                            <Logout style={{ color: '#fff' }} />
-                        </IconButton>
-                    </Link>
+                    <IconButton onClick={() => closeSession()}>
+                        <Logout style={{ color: '#fff' }} />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Grid>

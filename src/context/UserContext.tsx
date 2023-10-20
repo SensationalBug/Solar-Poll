@@ -11,7 +11,6 @@ interface userContextInterface {
 const UserProvider = ({ children }: userContextInterface) => {
     const auth = getAuth();
     const [isUser, setIsUser] = useState(false)
-
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             user ? setIsUser(true) : setIsUser(false)
@@ -31,19 +30,24 @@ const UserProvider = ({ children }: userContextInterface) => {
     })
 
     const login = (email: string, pwd: string) => {
-        signInWithEmailAndPassword(auth, email, pwd)
-            .then(() => {
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Signed in successfully'
-                }).then(() => setIsUser(true))
-            })
-            .catch(() => {
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Datos incorrectos'
+        return new Promise(resolve => {
+            signInWithEmailAndPassword(auth, email, pwd)
+                .then(() => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Signed in successfully'
+                    }).then(() => {
+                        setIsUser(true)
+                    })
                 })
-            })
+                .catch(() => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Datos incorrectos'
+                    })
+                })
+            resolve("ok")
+        })
     }
 
     const closeSession = () => {

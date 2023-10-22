@@ -1,5 +1,5 @@
 import logo from '../assets/logo.png'
-import FooterButtons from './FooterButtons'
+// import FooterButtons from './FooterButtons'
 import { Grid, Typography } from '@mui/material'
 import { QuestionContext } from '../context/QuestionsContext'
 import { useContext } from 'react'
@@ -49,9 +49,9 @@ const Footer = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <FooterButtons title='Terminos' />
+                    {/* <FooterButtons title='Terminos' />
                     <FooterButtons title='Politicas' />
-                    <FooterButtons title='Contact Us' />
+                    <FooterButtons title='Contact Us' /> */}
                 </Grid>
             </Grid>
         </Grid >

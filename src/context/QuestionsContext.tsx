@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { firebaseApp } from "../firebaseConfig/FirebaseConfig";
 import { createContext, useEffect, useState, useCallback } from "react";
-import { getDatabase, ref, set, onValue, get, child } from 'firebase/database'
+import { getDatabase, ref, set, onValue, get, child, remove } from 'firebase/database'
 
 export const QuestionContext = createContext({});
 
@@ -77,14 +77,54 @@ const QuestionProvider = ({ children }: props) => {
             const dataRef = ref(database, `answers/`)
             onValue(dataRef, (snapshot) => {
                 const selectedAnswers: any = []
-                const data = Object.entries(snapshot.val());
-                data.map((elem: any, index) => (
-                    elem[1].data.surveyId === id ?
-                        selectedAnswers.push(elem[1]) : []
-                ))
+                snapshot.val() ? (
+                    Object.entries(snapshot.val()).map((elem: any, index) => (
+                        elem[1].data.surveyId === id ?
+                            selectedAnswers.push(elem[1]) : []
+                    ))
+                ) : setUanswers([])
                 resolve(selectedAnswers)
             })
         })
+    }
+
+    const getAnswersToDelete = useCallback(() => {
+        return new Promise(resolve => {
+            const dataRef = ref(database, 'answers/')
+            onValue(dataRef, (snapshot) => {
+                const data = snapshot.val();
+                data ? resolve(data) : resolve([])
+            })
+        })
+    }, [database])
+
+    const moveAnswer = (name: string) => {
+        Swal.fire({
+            title: 'Advertencia',
+            icon: 'warning',
+            html: 'Estas seguro que deseas eliminar esta respuesta?',
+            showCancelButton: true,
+            showCloseButton: true,
+            focusConfirm: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        })
+            .then((res: any) => {
+                if (res.isConfirmed) {
+                    getAnswersToDelete().then((res: any) => {
+                        // eslint-disable-next-line array-callback-return
+                        Object.entries(res).map((elem: any, index: any) => {
+                            if (elem[1].data.name === name) {
+                                remove(ref(database, `answers/${elem[0]}`)).then(() => {
+                                    Swal.fire('Poof!',
+                                        'La respuesta ha sido eliminada.',
+                                        'success');
+                                }).catch((err) => console.log(err))
+                            }
+                        })
+                    })
+                }
+            });
     }
 
     useEffect(() => {
@@ -101,7 +141,8 @@ const QuestionProvider = ({ children }: props) => {
             setUdata,
             setAnswers,
             getAnswersByID,
-            setUanswers
+            setUanswers,
+            moveAnswer
         }}>
             {children}
         </QuestionContext.Provider>

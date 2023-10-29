@@ -1,42 +1,32 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import { QuestionContext } from '../context/QuestionsContext';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Dropdown from 'react-bootstrap/Dropdown';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { QuestionContext } from '../context/QuestionsContext';
 
-export const BasicSelector = ({ options, selectedSurvey, setSelectedSurvey }: any) => {
+export const BasicSelector = ({ options, setSurveyTitle }: any) => {
     const entries = Object.entries(options).reverse()
     const { getAnswersByID, getAnswers, setUanswers }: any = React.useContext(QuestionContext);
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setSelectedSurvey(event.target.value as string);
-        event.target.value ?
-            getAnswersByID(event.target.value).then((res: any) => setUanswers(res))
-            : getAnswers()
+    const handleChange = (value: any, title: any) => {
+        if (value) {
+            getAnswersByID(value).then((res: any) => setUanswers(res))
+            setSurveyTitle(title.data.title)
+        } else {
+            getAnswers()
+            setSurveyTitle('Todas')
+        }
     };
-
     return (
-        <Box sx={{ minWidth: 50, maxWidth: { xs: 100, lg: 200 } }}>
-            <FormControl fullWidth >
-                <InputLabel sx={{ color: '#fff' }}>
-                    <FilterAltIcon />
-                </InputLabel>
-                <Select
-                    value={selectedSurvey}
-                    onChange={handleChange}
-                    sx={{ color: '#fff' }}
-                >
-                    <MenuItem value={0}>Todas</MenuItem>
-                    {entries && entries.map((elem: any, index: any) => {
-                        return (
-                            <MenuItem key={index} value={elem[0]}>{elem[1].data.title}</MenuItem>
-                        )
-                    })}
-                </Select>
-            </FormControl>
-        </Box>
+        <Dropdown >
+            <Dropdown.Toggle style={{ backgroundColor: '#0A70B1', border: 'none' }}>
+                <FilterAltIcon />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+                <Dropdown.Item as="button" onClick={() => handleChange(0, 0)}>Todas</Dropdown.Item>
+                {entries && entries.map((elem: any, index: any) => (
+                    <Dropdown.Item key={index} as="button" onClick={() => handleChange(elem[0], elem[1])}>{elem[1].data.title}</Dropdown.Item>
+                ))}
+            </Dropdown.Menu>
+        </Dropdown >
     );
 }

@@ -1,4 +1,5 @@
 import { router } from './routes/Router';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import UserProvider from './context/UserContext';
 import { RouterProvider } from "react-router-dom";
 import MediaProvider from './context/MediaContext';

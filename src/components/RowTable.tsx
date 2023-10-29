@@ -11,6 +11,7 @@ import {
     IconButton,
 } from '@mui/material';
 import React, { useEffect } from 'react'
+import { OptionsSelector } from './OptionsSelector';
 import { SurveysContext } from '../context/SurveysContext';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -20,27 +21,23 @@ interface question {
     question?: any;
 }
 
-const RowTable = ({ row }: any) => {
+const RowTable = ({ user, survey }: any) => {
     const [open, setOpen] = React.useState(false);
     const [question, setQuestion] = React.useState<question>({});
     const { getSurveyByID }: any = React.useContext(SurveysContext);
     useEffect(() => {
-        getSurveyByID(row.data.surveyId).then((res: any) => {
+        getSurveyByID(user.data.surveyId).then((res: any) => {
             setQuestion(res)
         })
-    }, [getSurveyByID, row.data.surveyId])
-    const elementosDiv = Object.keys(row.respuestas).map((clave: any) => (
-        <TableRow key={clave}>
-            <TableCell>{clave}</TableCell>
-            <TableCell component="th" scope="row">
-                {question && question.questions && question.questions[clave - 1] && question.questions[clave - 1].question}
-            </TableCell>
-            <TableCell>{row.respuestas[clave]}</TableCell>
-        </TableRow>
+    }, [getSurveyByID, user.data.surveyId])
+
+    const getSurveyName = survey.map((elem: any, index: any) => (
+        elem[0] === user.data.surveyId ? elem[1].data.title : null
     ))
+
     return (
         <React.Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' }, backgroundColor:'#F0F0F0' }}>
+            <TableRow sx={{ '& > *': { borderBottom: 'unset' }, backgroundColor: '#F0F0F0' }}>
                 <TableCell sx={{ width: '10%' }}>
                     <IconButton
                         size="small"
@@ -51,19 +48,28 @@ const RowTable = ({ row }: any) => {
                 </TableCell>
                 <TableCell
                     sx={{
-                        width: '45%',
+                        width: '35%',
                         fontSize: { xs: '1em', lg: '1.3em' },
                         fontWeight: { xs: 'initial', lg: 'bold' },
                     }} component="th" scope="row">
-                    {row.data.name}
+                    {user.data.name}
                 </TableCell>
                 <TableCell
                     sx={{
-                        width: '45%',
+                        width: '25%',
                         fontSize: { xs: '1em', lg: '1.3em' },
                         fontWeight: { xs: 'initial', lg: 'bold' },
                     }} component="th" scope="row">
-                    {row.data.date}
+                    {user.data.date}
+                </TableCell>
+                <TableCell
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        fontSize: { xs: '1em', lg: '1.3em' },
+                        fontWeight: { xs: 'initial', lg: 'bold' },
+                    }} component="th" scope="row">
+                    <OptionsSelector user={user} />
                 </TableCell>
             </TableRow>
             <TableRow>
@@ -72,12 +78,15 @@ const RowTable = ({ row }: any) => {
                         <Box sx={{ margin: 1 }}>
                             <Grid container sx={{ justifyContent: 'space-between' }}>
                                 <Typography variant="h6" gutterBottom component="div">
-                                    <strong>Email:</strong> {row.data.email}
+                                    <strong>Email:</strong> {user.data.email}
                                 </Typography>
                                 <Typography variant="h6" gutterBottom component="div">
-                                    <strong>Número:</strong> {row.data.phoneNumber}
+                                    <strong>Número:</strong> {user.data.phoneNumber}
                                 </Typography>
                             </Grid>
+                            <Typography variant="h6" gutterBottom component="div">
+                                <strong>Encuesta:</strong> {getSurveyName}
+                            </Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow >
@@ -87,7 +96,15 @@ const RowTable = ({ row }: any) => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {elementosDiv}
+                                    {Object.keys(user.respuestas).map((clave: any) => (
+                                        <TableRow key={clave}>
+                                            <TableCell>{clave}</TableCell>
+                                            <TableCell component="th" scope="row">
+                                                {question && question.questions && question.questions[clave - 1] && question.questions[clave - 1].question}
+                                            </TableCell>
+                                            <TableCell>{user.respuestas[clave]}</TableCell>
+                                        </TableRow>
+                                    ))}
                                 </TableBody>
                             </Table>
                         </Box>

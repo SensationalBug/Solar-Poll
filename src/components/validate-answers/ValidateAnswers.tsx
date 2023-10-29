@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import CheckInput from '../components/CheckInput';
-import { QuestionContext } from '../context/QuestionsContext';
+import CheckInput from '../CheckInput';
+import { QuestionContext } from '../../context/QuestionsContext';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import QtOptionButton from '../components/questions-types/QtOptionButton';
-import { QtFormTextInput } from '../components/questions-types/QtFormTextInput';
-import QtRadioFormControl from '../components/questions-types/QtRadioFormControl';
+import QtOptionButton from '../questions-types/QtOptionButton';
+import { QtFormTextInput } from '../questions-types/QtFormTextInput';
+import QtRadioFormControl from '../questions-types/QtRadioFormControl';
 interface validateAnswersInterface {
     id: number;
     type: number;

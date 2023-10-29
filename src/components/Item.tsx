@@ -4,8 +4,8 @@ import {
     ListItemIcon,
 } from '@mui/material'
 import Home from '@mui/icons-material/Home';
-import AccountTree from '@mui/icons-material/AccountTree';
-import { CustomLink } from './custom-components/CustomLink';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import PollIcon from '@mui/icons-material/Poll';import { CustomLink } from './custom-components/CustomLink';
 import { CustomListText } from './custom-components/CustomListText';
 import { CustomListItemButton } from './custom-components/CustomListItemButton';
 const Item = ({ toggleDrawer }: any) => {
@@ -15,7 +15,7 @@ const Item = ({ toggleDrawer }: any) => {
                 <CustomListItemButton>
                     <CustomLink to={"/dashboard"}>
                         <ListItemIcon>
-                            <Home color='info'/>
+                            <Home color='info' />
                         </ListItemIcon>
                         <CustomListText primary="Inicio" />
                     </CustomLink>
@@ -23,9 +23,17 @@ const Item = ({ toggleDrawer }: any) => {
                 <CustomListItemButton>
                     <CustomLink to={"/surveys"}>
                         <ListItemIcon>
-                            <AccountTree color='info'/>
+                            <PollIcon color='info' />
                         </ListItemIcon>
                         <CustomListText primary="Surveys" />
+                    </CustomLink>
+                </CustomListItemButton>
+                <CustomListItemButton>
+                    <CustomLink to={"/seen"}>
+                        <ListItemIcon>
+                            <VisibilityIcon color='info' />
+                        </ListItemIcon>
+                        <CustomListText primary="Leido" />
                     </CustomLink>
                 </CustomListItemButton>
             </ListItem>

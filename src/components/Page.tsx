@@ -12,7 +12,6 @@ interface pageInterface {
 
 export const Page = ({ children, overflow }: pageInterface) => {
     const { isUser }: any = useContext(UserContext)
-    console.log(isUser)
     return (
         <Grid sx={{ height: '100vh', overflow: overflow || 'hidden' }}>
             {isUser ? (

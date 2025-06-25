@@ -1,0 +1,50 @@
+import { useState } from 'react'
+import { Grid } from '@mui/material'
+import { ContactForm } from './ContactForm'
+import QuestionCard from './cards/QuestionCard'
+
+interface survey {
+    id?: any;
+    survey?: any;
+}
+
+const Home = ({ survey }: survey) => {
+    const [slideToShow, setSlideToShow] = useState(1);
+    return (
+        <Grid container
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: { xs: '70%', lg: '80%' },
+            }}
+        >
+            {survey &&
+                survey.questions.length < slideToShow ? (
+                <ContactForm
+                    slideToShow={slideToShow}
+                    setSlideToShow={setSlideToShow} />
+            ) : (survey?.questions &&
+                survey?.questions.map((elem: any, index: any) => {
+                    const { question, description, type, answers }: any = elem;
+                    return (
+                        <QuestionCard
+                            id={index + 1}
+                            key={question}
+                            text={description}
+                            type={type}
+                            title={question}
+                            answers={answers}
+                            slideToShow={slideToShow}
+                            setSlideToShow={setSlideToShow}
+                            count={survey?.questions.length}
+                        />
+                    )
+                })
+            )
+            }
+        </Grid>
+    )
+}
+
+export default Home

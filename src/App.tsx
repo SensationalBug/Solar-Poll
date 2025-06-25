@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { router } from './routes/Router';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import UserProvider from './context/UserContext';
+import { RouterProvider } from "react-router-dom";
+import MediaProvider from './context/MediaContext';
+import SurveysProvider from './context/SurveysContext';
+import QuestionProvider from './context/QuestionsContext';
 
-function App() {
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <QuestionProvider>
+        <SurveysProvider>
+          <MediaProvider>
+            <RouterProvider router={router} />
+          </MediaProvider>
+        </SurveysProvider>
+      </QuestionProvider>
+    </UserProvider>
   );
 }
 
